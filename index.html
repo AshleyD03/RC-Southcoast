@@ -8,23 +8,82 @@
 
     <!-- Personal Use -->
     <link rel="stylesheet" href="resources/index.css">
-    <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/images/Icon.webp" type="image/x-icon">
 
     <!-- Google web fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <content id="record-container">
 
         <div id="record-panel">
-            <span class="panel" style="background-color: aqua;" id="scoreBoard">
-                <div class="top-bar-tall">
+            <span class="panel" id="scoreBoard">
 
-                </div>
-                <div class="scroll-list">
+                <!-- Score board container -->
+                <div class="panel-container">
 
+                    <!-- Top scroll area showing points and clock -->
+                    <div class="top-bar-tall">
+                        <div class="slideshow" id="scoreBoard-panel">
+                            <span class="slide" id="scoreBoard-points">
+                                <center>
+                                    <div class="circle-image drop-shadow">
+                                        <img src="resources/images/PlayerIcon.webp" alt="player icon">
+                                    </div>
+                                    <div class="points">
+                                        <h2 class="point-counter">
+                                            100
+                                        </h2>
+                                        <p>
+                                            pts.
+                                        </p>
+                                    </div>
+                                </center>
+                            </span><span class="slide" id="scoreBoard-clock">
+                                <center>
+                                    <div class="circle-image">
+                                        <img src="resources/images/ClockIcon.webp" alt="player icon">
+                                    </div>
+                                    <div class="points">
+                                        <h3 class="time-counter">
+                                            01:32:02
+                                        </h3>
+                                    </div>
+                                </center>
+                            </span>
+                        </div>
+                        <div id="scoreBoard-dots" class="flex-center">
+                            <span class="dot scoreBoard-href active" data-moveto="scoreBoard-points"></span>
+                            <span class="dot scoreBoard-href" data-moveto="scoreBoard-clock"></span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom list showing record of what has happened -->
+                    <div class="scroll-list">
+                        <div class="table2">
+                            <div class="header">
+                                <span>
+                                    Time
+                                </span>
+                                <span>
+                                    Events
+                                </span>
+                            </div>
+                            <div class="rows">
+                                <span>
+                                    1:20
+                                </span>
+                                <span>
+                                    +10 hit marker
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </span><span class="panel" style="background-color: green;" id="penalties">
 
             </span><span class="panel"style="background-color: blue;" id="settings">
@@ -32,6 +91,7 @@
             </span>
         </div>
 
+        <!-- Bottom bar with controller icons -->
         <div id="bottomBar">
             <button class="record-panel-button" data-moveto="scoreBoard">
                 <span class="material-icons-outlined">
