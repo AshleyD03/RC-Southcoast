@@ -15,14 +15,19 @@ class container {
                 // Set all Incative 
                 this.__hrefs.forEach(trig => {
                     trig.classList.remove('active')
-                    trig.children[0].classList.add('material-icons-outlined')
-                    trig.children[0].classList.remove('material-icons')
+                    if (trig.children[0]) {
+                        trig.children[0].classList.add('material-icons-outlined')
+                        trig.children[0].classList.remove('material-icons')
+                    }
                 })
 
                 // Set specific Active
                 trigger.classList.add('active');
-                trigger.children[0].classList.add('material-icons')
-                trigger.children[0].classList.remove('material-icons-outlined')
+                if (trigger.children[0]) {
+                    trigger.children[0].classList.add('material-icons')
+                    trigger.children[0].classList.remove('material-icons-outlined')
+                }
+                
             })
         )
 
