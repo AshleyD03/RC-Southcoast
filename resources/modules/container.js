@@ -10,7 +10,7 @@ class container {
                 // Move to elements id
                 let id = trigger.dataset.moveto;
                 
-                this.moveTo(id)
+                this.__moveTo__(id)
 
                 // Set all Incative 
                 this.__hrefs.forEach(trig => {
@@ -26,9 +26,11 @@ class container {
             })
         )
 
+        this.__hrefs[0].click()
+
     }
 
-    moveTo (id) {
+    __moveTo__ (id) {
         if (!id || typeof id !== 'string') return
         
         let target = document.getElementById(id);

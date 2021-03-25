@@ -18,6 +18,8 @@ button {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  /* Slide panels */
+  /* Bottom bar with controls */
 }
 
 #record-container #record-panel {
@@ -30,11 +32,29 @@ button {
       scroll-snap-type: x mandatory;
 }
 
-#record-container #record-panel span {
+#record-container #record-panel .panel {
   display: inline-block;
   width: 100%;
   height: 100%;
   margin: 0px;
+}
+
+#record-container #record-panel .panel .top-bar-tall {
+  display: block;
+  width: 100%;
+  height: 300px;
+  white-space: nowrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
+  background-color: #E73838;
+}
+
+#record-container #record-panel .panel .scroll-list {
+  display: block;
+  width: 100%;
+  height: calc(100% - 300px);
 }
 
 #record-container #bottomBar {
@@ -50,9 +70,26 @@ button {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  border-left: 2px solid #F0CBCB;
+  border-right: 2px solid #F0CBCB;
+  -webkit-box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
 }
 
-#record-container #bottomBar button .active {
+#record-container #bottomBar button span {
+  font-size: 2rem;
+  color: #FFF5F5;
+}
+
+#record-container #bottomBar .active {
   background-color: #E73838;
+}
+
+#record-container #bottomBar button:first-Child {
+  border-left: 0px;
+}
+
+#record-container #bottomBar button:last-Child {
+  border-right: 0px;
 }
 /*# sourceMappingURL=index.css.map */

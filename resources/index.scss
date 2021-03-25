@@ -21,6 +21,7 @@ $sectionHeight: calc(100% - 4rem);
     height: 100%;
     overflow: hidden;
 
+    /* Slide panels */
     #record-panel {
         width: 100%;
         height: $sectionHeight;
@@ -29,14 +30,32 @@ $sectionHeight: calc(100% - 4rem);
         overflow: hidden;
         scroll-snap-type: x mandatory;
 
-        span {
+        .panel {
             display: inline-block;
             width: 100%;
             height: 100%;
             margin: 0px;
+
+            .top-bar-tall {
+                display: block;
+                width: 100%;
+                height: 300px;
+                white-space: nowrap;
+                word-wrap: break-word;
+                overflow: hidden;
+                scroll-snap-type: x mandatory;
+                background-color: #E73838;
+            }
+
+            .scroll-list {
+                display: block;
+                width: 100%;
+                height: calc(100% - 300px);
+            }
         }
     }
 
+    /* Bottom bar with controls */
     #bottomBar {
         display: flex;
 
@@ -46,10 +65,27 @@ $sectionHeight: calc(100% - 4rem);
 
         button {
             flex-grow: 1;
+            border-left: 2px solid #F0CBCB;
+            border-right: 2px solid #F0CBCB;
+            box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
 
-            .active {
-                background-color: #E73838;
+
+            span {
+                font-size: 2rem;
+                color: #FFF5F5;;
             }
         }
+        .active {
+            background-color: #E73838;
+        }
+
+        button:first-Child {
+            border-left: 0px;
+        }
+        
+        button:last-Child {
+            border-right: 0px;
+        }
     }    
+
 }
