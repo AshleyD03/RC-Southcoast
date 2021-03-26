@@ -13,6 +13,7 @@
     <!-- Google web fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap" rel="stylesheet">
 
 </head>
@@ -24,13 +25,12 @@
 
                 <!-- Score board container -->
                 <div class="panel-container">
-
                     <!-- Top scroll area showing points and clock -->
-                    <div class="top-bar-tall">
+                    <div class="top-bar-tall" id="scoreBoard-top">
                         <div class="slideshow" id="scoreBoard-panel">
                             <span class="slide" id="scoreBoard-points">
                                 <center>
-                                    <div class="circle-image drop-shadow">
+                                    <div class="circle-image-big drop-shadow">
                                         <img src="resources/images/PlayerIcon.webp" alt="player icon">
                                     </div>
                                     <div class="points">
@@ -44,7 +44,7 @@
                                 </center>
                             </span><span class="slide" id="scoreBoard-clock">
                                 <center>
-                                    <div class="circle-image">
+                                    <div class="circle-image-big">
                                         <img src="resources/images/ClockIcon.webp" alt="player icon">
                                     </div>
                                     <div class="points">
@@ -62,8 +62,8 @@
                     </div>
 
                     <!-- Bottom list showing record of what has happened -->
-                    <div class="scroll-list">
-                        <div class="table2">
+                    <div class="scroll-list" id="scoreBoard-bottom">
+                        <div class="table3x7">
                             <div class="header">
                                 <span>
                                     Time
@@ -72,21 +72,103 @@
                                     Events
                                 </span>
                             </div>
-                            <div class="rows">
+                            <div class="row">
                                 <span>
-                                    1:20
+                                    01:20
                                 </span>
                                 <span>
                                     +10 hit marker
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    01:18
+                                </span>
+                                <span>
+                                    +1 Winch used
+                                </span>
+                            </div>
+                            <div class="row flag">
+                                <span>
+                                    01:14
+                                </span>
+                                <span>
+                                    Reached Flag 2
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        {
+                            // Fix heights
+                            let fixHeight = () => {
+                                document.getElementById('scoreBoard-bottom')
+                                .style.height = `calc(100% - ${document.getElementById('scoreBoard-top').clientHeight}px)`
+                            }
+                            window.addEventListener('load', fixHeight);
+                            window.addEventListener('resize', fixHeight)
+                        }
+                    </script>
+                </div>
+
+            </span>
+            
+            <span class="panel" id="penalties">
+
+                <!-- Penalties container -->
+                <div class="panel-container">
+                    <!-- Top bar with -->
+                    <div class="top-bar-small flex-center" id="penalties-top">
+                        <div class="circle-image-small flow-left drop-shadow">
+                            <img src="resources/images/PlayerIcon.webp" alt="player icon">
+                        </div>
+                        <div class="top-title">
+                            Flag 2
+                        </div>
+                    </div>
+
+                    <!-- Bottom content -->
+                    <div class="bottom-content" id="penalties-bottom">
+                        <div class="table7x3">
+                            <div class="header">
+                                <span>
+                                    Time
+                                </span>
+                                <span>
+                                    Events
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    01:20
+                                </span>
+                                <span>
+                                    +10 hit marker
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    01:18
+                                </span>
+                                <span>
+                                    +1 Winch used
+                                </span>
+                            </div>
+                            <div class="row flag">
+                                <span>
+                                    01:14
+                                </span>
+                                <span>
+                                    Reached Flag 2
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </span><span class="panel" style="background-color: green;" id="penalties">
-
-            </span><span class="panel"style="background-color: blue;" id="settings">
+            </span>
+            
+            <span class="panel"style="background-color: blue;" id="settings">
 
             </span>
         </div>

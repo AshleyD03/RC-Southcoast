@@ -1,9 +1,9 @@
 @mixin sunflower {
-    font-family: 'Sunflower', sans-serif;
+    font-family: sunflower;
 }
 
 @mixin supermercado {
-    font-family: 'Supermercado One', cursive;
+    font-family: Supermercado One;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-color: #FFFFFF;
+    background-color: white;
     @include sunflower;
 }
 
@@ -85,7 +85,7 @@ $sectionHeight: calc(100% - 4rem);
     overflow: hidden;
 
     /* Slide panels */
-    #record-panel {
+    #record-panel {    
         width: 100%;
         height: $sectionHeight;
         white-space: nowrap;
@@ -93,8 +93,10 @@ $sectionHeight: calc(100% - 4rem);
         overflow-y: hidden;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
+        background-color: #c5c5c525;
 
-        .panel {
+        .panel {    
+            background-color: white;
             /* Vertical align: top fixes center stretch page bug */
             display: inline-block;
             vertical-align: top;
@@ -112,22 +114,31 @@ $sectionHeight: calc(100% - 4rem);
             .top-bar-tall {
                 display: block;
                 width: 100%;
+                height: fit-content;
                 background-color: #FF5F5F;
                 color: #FFFFFF;
                 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
             }
 
+            .top-bar-small {
+                background-color: #FF5F5F;
+                width: 100%;
+                height: 5rem;
+                color: #FFFFFF;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+            
+                .circle-image-small {
+                    margin: 1rem auto 1rem 1rem;
+                }
+            }
+
             .scroll-list {
                 display: block;
-                max-height: 50vh;
+                height: 40%;
                 width: 100%;
             }
 
-            .circle-image {
-                margin-top: 2rem;
-                margin-bottom: 0.5rem;
-                width: 20vh;
-                height: 20vh;
+            @mixin circle-image {
                 overflow: hidden;
                 border-radius: 50%;
 
@@ -137,6 +148,21 @@ $sectionHeight: calc(100% - 4rem);
                     object-fit: cover;
                     object-position: top;
                 }
+            }
+
+            .circle-image-big {
+                margin-top: 2rem;
+                margin-bottom: 0.5rem;
+                width: 20vh;
+                height: 20vh;
+                @include circle-image;
+            }
+
+            .circle-image-small {
+                width: 3rem;
+                height: 3rem;
+                margin: 1rem;
+                @include circle-image;
             }
 
             .points {
@@ -163,25 +189,37 @@ $sectionHeight: calc(100% - 4rem);
                 }
             }
 
-            .table2 {
+            .top-title {
+                @include supermercado;
+                text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+                margin: 1rem;
+                font-size: 2rem;
+            }
+
+
+            @mixin table ($dimension...){
                 width: 100%;
+                max-height: 100%;
+                overflow-y: scroll;
+                overflow-x: auto;
 
                 div {
                     display: grid;
-                    grid-template-columns: 30vw 70vw;
+                    grid-template-columns: $dimension;
+                    height: fit-content;
                 }
 
                 .header {
                     text-align: left;
                     color: #626262;
-                    font-size: 1.1rem;
+                    font-size: 1.5rem;
                     font-style: normal;
                     font-weight: 500;
                     border-bottom: 2px solid #DADADA;
                 }
 
                 span {
-                    padding: 1rem;
+                    padding: 1rem 1.2rem 1rem 1.2rem;
                     text-align: left;
                 }
 
@@ -189,6 +227,51 @@ $sectionHeight: calc(100% - 4rem);
                     text-align: right;
                     border-right: 2px solid #DADADA;
                 }
+
+                .row:nth-of-type(2) span {
+                    padding-top: 1rem;
+                }
+                
+                .row:last-of-type {
+                    margin-bottom: 3rem;
+                }
+
+                .row {
+                    span {
+                        padding-top: 0.5rem;
+                        padding-bottom: 0.5rem;
+                    }
+                    
+                    span:first-child {
+                        font-size: 1.3rem;
+                        font-style: normal;
+                        font-weight: 300;
+                        color: #5E5E5E;
+                    }
+                    span:last-child {
+                        font-size: 1.3rem;
+                        font-style: normal;
+                        font-weight: 300;
+                        color: #8F8F8F;
+                    }
+                }
+
+                .flag {
+                    background-color: #9AF9A3;
+
+                    span:first-child, span:last-child {
+                        color: #000000;
+                    }
+                    
+                }
+            }
+
+            .table3x7 {
+                @include table(30vw 70vw)
+            }
+
+            .table7x3 {
+                @include table(70vw 30vw)
             }
         }
     }
