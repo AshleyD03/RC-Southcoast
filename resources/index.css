@@ -215,29 +215,6 @@ button {
   margin-bottom: 1rem;
 }
 
-#record-container #record-panel .panel .mini-points {
-  font-family: Supermercado One;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-#record-container #record-panel .panel .mini-points h4 {
-  font-size: 1.8rem;
-  margin: 0px 4px 0px 0px;
-}
-
-#record-container #record-panel .panel .mini-points p {
-  font-size: 1rem;
-  margin: 4px 0px 0px 0px;
-}
-
 #record-container #record-panel .panel .top-title {
   font-family: Supermercado One;
   text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
@@ -338,6 +315,7 @@ button {
 #record-container #record-panel .panel .table3x7 .row .penalty :first-child {
   border: none;
   margin-right: auto;
+  color: #1E1313;
 }
 
 #record-container #record-panel .panel .table3x7 .row .penalty :last-child {
@@ -363,9 +341,10 @@ button {
 }
 
 #record-container #record-panel .panel .table3x7 .row .penalty-controls .add, #record-container #record-panel .panel .table3x7 .row .penalty-controls .remove {
+  padding: 0px;
   font-size: 2.5rem;
-  -webkit-transition: color 100ms linear;
-  transition: color 100ms linear;
+  -webkit-transition: color 200ms linear;
+  transition: color 200ms linear;
 }
 
 #record-container #record-panel .panel .table3x7 .row .penalty-controls .add:not(:disabled), #record-container #record-panel .panel .table3x7 .row .penalty-controls .remove:not(:disabled) {
@@ -484,6 +463,7 @@ button {
 #record-container #record-panel .panel .table65x35 .row .penalty :first-child {
   border: none;
   margin-right: auto;
+  color: #1E1313;
 }
 
 #record-container #record-panel .panel .table65x35 .row .penalty :last-child {
@@ -509,9 +489,10 @@ button {
 }
 
 #record-container #record-panel .panel .table65x35 .row .penalty-controls .add, #record-container #record-panel .panel .table65x35 .row .penalty-controls .remove {
+  padding: 0px;
   font-size: 2.5rem;
-  -webkit-transition: color 100ms linear;
-  transition: color 100ms linear;
+  -webkit-transition: color 200ms linear;
+  transition: color 200ms linear;
 }
 
 #record-container #record-panel .panel .table65x35 .row .penalty-controls .add:not(:disabled), #record-container #record-panel .panel .table65x35 .row .penalty-controls .remove:not(:disabled) {
@@ -535,6 +516,35 @@ button {
 
 #record-container #record-panel .panel .table65x35 .flag span:first-child, #record-container #record-panel .panel .table65x35 .flag span:last-child {
   color: #000000;
+}
+
+#record-container #record-panel .panel .title-pad span {
+  font-size: 1.7rem;
+  padding: 1rem 1.2rem 0.5rem 1.2rem;
+}
+
+#record-container #record-panel .panel .mini-points {
+  font-family: Supermercado One;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#record-container #record-panel .panel .mini-points h4 {
+  font-size: 2rem;
+  margin: 0px 4px 0px 0px;
+  font-weight: 400;
+}
+
+#record-container #record-panel .panel .mini-points p {
+  font-size: 1rem;
+  margin: 4px 0px 0px 0px;
 }
 
 #record-container #bottomBar {

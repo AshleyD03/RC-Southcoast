@@ -63,7 +63,7 @@
 
                     <!-- Bottom list showing record of what has happened -->
                     <div class="scroll-list" id="scoreBoard-bottom">
-                        <div class="table3x7">
+                        <div class="table3x7" id="penalty-record-target">
                             <div class="header">
                                 <span>
                                     Time
@@ -72,22 +72,18 @@
                                     Events
                                 </span>
                             </div>
-                            <div class="row">
-                                <span>
-                                    01:20
-                                </span>
-                                <span>
-                                    +10 hit marker
-                                </span>
-                            </div>
-                            <div class="row">
-                                <span>
-                                    01:18
-                                </span>
-                                <span>
-                                    +1 Winch used
-                                </span>
-                            </div>
+                            
+                            <template id="penalty-record-template">
+                                <div class="row">
+                                    <span>
+                                        01:20
+                                    </span>
+                                    <span>
+                                        +10 hit marker
+                                    </span>
+                                </div>
+                            </template>
+                            
                             <div class="row flag">
                                 <span>
                                     01:14
@@ -130,7 +126,7 @@
                     <!-- Bottom content -->
                     <div class="bottom-content" id="penalties-bottom">
                         <div class="table65x35" id="penalty-board-target">
-                            <div class="header">
+                            <div class="header title-pad">
                                 <span>
                                     Penalties
                                 </span>

@@ -16,3 +16,4 @@ window.penaltyBoard = new PenaltyBoard();
 // Preset commands (for testing)
 mainContainer.__hrefs[1].click()
 penaltyBoard._createController_('add',12)
+penaltyBoard._createController_('nut',4)

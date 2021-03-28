@@ -34,25 +34,26 @@ class Controller {
         this.__count = 0;
         this.__records = [];
         this.__penaltyBoard = penaltyBoard;
-        this.id = this.__penaltyBoard._controlls.length;
+        this.__message = `+${this.__value} ${this.__name}`;
+        this.__target = document.getElementById('penalty-record-target');
 
         // Clone node and seperate parts
         this._node = document.getElementById('penalty-control-template').content.cloneNode(true).children[0];
         let nodeName = this._node.children[0].children[0];
         let nodeValue = this._node.children[0].children[1];
         let nodeAdd = this._node.children[1].children[0];
-        let nodeCount = this._node.children[1].children[1];
+        this._nodeCount = this._node.children[1].children[1];
         let nodeRemove = this._node.children[1].children[2];
 
         // Add style changes
         nodeName.innerHTML = this.__name;
-        nodeValue.innerHTML = this.__value;
+        nodeValue.innerHTML = `+${this.__value}`;
 
         let timeout = (obj) => {
             obj.disabled = true;
             setTimeout(function() {
                 obj.disabled = false;
-            }, 1500);
+            }, 1000);
         }
 
         // Add event
@@ -60,40 +61,57 @@ class Controller {
             timeout(nodeAdd)
 
             // Alter values
-            this.__count -=- 1;
-            this.__penaltyBoard._addPoints_(this.__value);
-            nodeCount.innerHTML = `${this.__count * this.__value}`;
+            this.__recordEvent__();
         })
 
         // Remove event
         nodeRemove.addEventListener('click', e => {
             if (this.__count < 1) return 
-            timeout(nodeRemove)
-
-            // Alter values
-            this.__count -= 1;
-            this.__penaltyBoard._addPoints_(-this.__value);
-            nodeCount.innerHTML = `${this.__count * this.__value}`;
+            timeout(nodeRemove);
+            this.__removeEvent__();
         })
     }
 
-    __createRecord__ () {
+    __recordEvent__ () {
+        // Change point values
+        this.__count -=- 1;
+        this.__penaltyBoard._addPoints_(this.__value);
+        this._nodeCount.innerHTML = `${this.__count * this.__value}`;
 
+        // Add record object
+        let record = new Record(this.__message);
+        this.__target.insertBefore(record._node, this.__target.children[1]);
+        this.__records.push(record);
     }
 
-    __removeRecord__ () {
-        
+    __removeEvent__ (n=(this.__count-1)) {
+        if (n < 0) return console.log(n)
+        // Change point values
+        this.__count -= 1;
+        this.__penaltyBoard._addPoints_(-this.__value);
+        this._nodeCount.innerHTML = `${this.__count * this.__value}`;
+
+        // Remove record object
+        this.__target.removeChild(this.__records[n]._node);
+        this.__records.splice(n, 1)
     }
 }
 
 class Record {
     // Contains a record node
-    constructor () {
+    constructor (msg, classes=[]) {
+        // Set time or recording
+        this._msg = msg;
+        this._time = (new Date()).getTime();
 
-    }
+        // Clone node and seperate parts
+        this._node = document.getElementById('penalty-record-template').content.cloneNode(true).children[0];
+        this._nodeTime = this._node.children[0];
+        this._nodeMsg = this._node.children[1];
 
-    _remove_ () {
-
+        // Apply styling
+        this._nodeTime.innerHTML = this._time;
+        this._nodeMsg.innerHTML = this._msg;
     }
 }
 

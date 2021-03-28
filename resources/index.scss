@@ -192,18 +192,6 @@ $sectionHeight: calc(100% - 4rem);
                 }
             }
 
-            .mini-points {
-                @include points;
-                h4 {
-                    font-size: 1.8rem;
-                    margin: 0px 4px 0px 0px;
-                }
-                p {
-                    font-size: 1rem;
-                    margin: 4px 0px 0px 0px;
-                }
-            }
-
             .top-title {
                 @include supermercado;
                 text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
@@ -293,6 +281,7 @@ $sectionHeight: calc(100% - 4rem);
                         :first-child {
                             border: none;
                             margin-right: auto;
+                            color: #1E1313;
                         }
 
                         :last-child {
@@ -311,8 +300,9 @@ $sectionHeight: calc(100% - 4rem);
                             padding: 0px;
                         }   
                         .add, .remove {
+                            padding: 0px;
                             font-size: 2.5rem;
-                            transition: color 100ms linear;
+                            transition: color 200ms linear;
                         }
 
                         .add:not(:disabled), .remove:not(:disabled) {
@@ -348,6 +338,24 @@ $sectionHeight: calc(100% - 4rem);
 
             .table65x35 {
                 @include table(65vw 35vw)
+            }
+
+            .title-pad span {
+                font-size: 1.7rem;
+                padding: 1rem 1.2rem 0.5rem 1.2rem;
+            }
+            
+            .mini-points {
+                @include points;
+                h4 {
+                    font-size: 2rem;
+                    margin: 0px 4px 0px 0px;
+                    font-weight: 400;
+                }
+                p {
+                    font-size: 1rem;
+                    margin: 4px 0px 0px 0px;
+                }
             }
         }
     }
