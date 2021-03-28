@@ -76,7 +76,7 @@ class Controller {
         // Change point values
         this.__count -=- 1;
         this.__penaltyBoard._addPoints_(this.__value);
-        this._nodeCount.innerHTML = `${this.__count * this.__value}`;
+        this._nodeCount.innerHTML = `${this.__count}`;
 
         // Add record object
         let record = new Record(this.__message);
@@ -89,7 +89,7 @@ class Controller {
         // Change point values
         this.__count -= 1;
         this.__penaltyBoard._addPoints_(-this.__value);
-        this._nodeCount.innerHTML = `${this.__count * this.__value}`;
+        this._nodeCount.innerHTML = `${this.__count}`;
 
         // Remove record object
         this.__target.removeChild(this.__records[n]._node);
