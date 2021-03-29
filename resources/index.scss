@@ -165,13 +165,16 @@ $sectionHeight: calc(100% - 4rem);
                 @include circle-image;
             }
 
-            .points {
+            @mixin points {
                 @include supermercado;
                 display: flex;
                 align-items: flex-end;
                 justify-content: center;
-                margin-top: 3vw;
+            }
+            .points {
+                @include points;
                 text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+                margin-top: 3vw;
 
                 h2 {
                     font-size: 5.5rem;
@@ -201,7 +204,8 @@ $sectionHeight: calc(100% - 4rem);
                 width: 100%;
                 max-height: 100%;
                 overflow-y: scroll;
-                overflow-x: auto;
+                overflow-x: hidden;
+                white-space: normal;
 
                 div {
                     display: grid;
@@ -216,6 +220,11 @@ $sectionHeight: calc(100% - 4rem);
                     font-style: normal;
                     font-weight: 500;
                     border-bottom: 2px solid #DADADA;
+                    
+                    span {
+                        display: flex;
+                        align-items: center;
+                    }
                 }
 
                 span {
@@ -223,9 +232,16 @@ $sectionHeight: calc(100% - 4rem);
                     text-align: left;
                 }
 
+                span span {
+                    padding: 0px;
+                }
+
                 span:first-child {
-                    text-align: right;
                     border-right: 2px solid #DADADA;
+                }
+
+                span span:first-child {
+                    border-right: 0px;
                 }
 
                 .row:nth-of-type(2) span {
@@ -233,7 +249,7 @@ $sectionHeight: calc(100% - 4rem);
                 }
                 
                 .row:last-of-type {
-                    margin-bottom: 3rem;
+                    margin-bottom: 5rem;
                 }
 
                 .row {
@@ -254,6 +270,58 @@ $sectionHeight: calc(100% - 4rem);
                         font-weight: 300;
                         color: #8F8F8F;
                     }
+
+                    .penalty {
+                        display: flex;
+
+                        span {
+                            padding: 0px;
+                        }
+
+                        :first-child {
+                            border: none;
+                            margin-right: auto;
+                            color: #1E1313;
+                        }
+
+                        :last-child {
+                            color: #FF5F5F;
+                        }
+                    }
+
+                    .penalty-controls {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0px 0px 0px 0px;
+                        padding-top: 0px;
+
+                        span {
+                            width: 33%;
+                            padding: 0px;
+                            text-align: center;
+                        }   
+                        .add, .remove {
+                            padding: 0px;
+                            font-size: 2.5rem;
+                            transition: color 200ms linear;
+                        }
+
+                        .add:not(:disabled), .remove:not(:disabled) {
+                            color: #242424;
+                        }
+
+                        .add:disabled, .remove:disabled {
+                            color: #FF5F5F;
+                        }
+
+                        .count {
+                            @include supermercado;
+                            color: #FF5F5F;
+                            font-size: 2rem;
+                            padding-top: 2px;
+                        }
+                    }
                 }
 
                 .flag {
@@ -270,8 +338,26 @@ $sectionHeight: calc(100% - 4rem);
                 @include table(30vw 70vw)
             }
 
-            .table7x3 {
-                @include table(70vw 30vw)
+            .table65x35 {
+                @include table(65vw 35vw)
+            }
+
+            .title-pad span {
+                font-size: 1.7rem;
+                padding: 1rem 1.2rem 0.5rem 1.2rem;
+            }
+            
+            .mini-points {
+                @include points;
+                h4 {
+                    font-size: 2rem;
+                    margin: 0px 4px 0px 0px;
+                    font-weight: 400;
+                }
+                p {
+                    font-size: 1rem;
+                    margin: 4px 0px 0px 0px;
+                }
             }
         }
     }

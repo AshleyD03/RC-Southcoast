@@ -196,8 +196,8 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 3vw;
   text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+  margin-top: 3vw;
 }
 
 #record-container #record-panel .panel .points h2 {
@@ -226,7 +226,8 @@ button {
   width: 100%;
   max-height: 100%;
   overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
+  white-space: normal;
 }
 
 #record-container #record-panel .panel .table3x7 div {
@@ -248,14 +249,30 @@ button {
   border-bottom: 2px solid #DADADA;
 }
 
+#record-container #record-panel .panel .table3x7 .header span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 #record-container #record-panel .panel .table3x7 span {
   padding: 1rem 1.2rem 1rem 1.2rem;
   text-align: left;
 }
 
+#record-container #record-panel .panel .table3x7 span span {
+  padding: 0px;
+}
+
 #record-container #record-panel .panel .table3x7 span:first-child {
-  text-align: right;
   border-right: 2px solid #DADADA;
+}
+
+#record-container #record-panel .panel .table3x7 span span:first-child {
+  border-right: 0px;
 }
 
 #record-container #record-panel .panel .table3x7 .row:nth-of-type(2) span {
@@ -263,7 +280,7 @@ button {
 }
 
 #record-container #record-panel .panel .table3x7 .row:last-of-type {
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 #record-container #record-panel .panel .table3x7 .row span {
@@ -285,6 +302,68 @@ button {
   color: #8F8F8F;
 }
 
+#record-container #record-panel .panel .table3x7 .row .penalty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty span {
+  padding: 0px;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty :first-child {
+  border: none;
+  margin-right: auto;
+  color: #1E1313;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty :last-child {
+  color: #FF5F5F;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0px 0px 0px 0px;
+  padding-top: 0px;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls span {
+  width: 33%;
+  padding: 0px;
+  text-align: center;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls .add, #record-container #record-panel .panel .table3x7 .row .penalty-controls .remove {
+  padding: 0px;
+  font-size: 2.5rem;
+  -webkit-transition: color 200ms linear;
+  transition: color 200ms linear;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls .add:not(:disabled), #record-container #record-panel .panel .table3x7 .row .penalty-controls .remove:not(:disabled) {
+  color: #242424;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls .add:disabled, #record-container #record-panel .panel .table3x7 .row .penalty-controls .remove:disabled {
+  color: #FF5F5F;
+}
+
+#record-container #record-panel .panel .table3x7 .row .penalty-controls .count {
+  font-family: Supermercado One;
+  color: #FF5F5F;
+  font-size: 2rem;
+  padding-top: 2px;
+}
+
 #record-container #record-panel .panel .table3x7 .flag {
   background-color: #9AF9A3;
 }
@@ -293,24 +372,25 @@ button {
   color: #000000;
 }
 
-#record-container #record-panel .panel .table7x3 {
+#record-container #record-panel .panel .table65x35 {
   width: 100%;
   max-height: 100%;
   overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
+  white-space: normal;
 }
 
-#record-container #record-panel .panel .table7x3 div {
+#record-container #record-panel .panel .table65x35 div {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 70vw 30vw;
-      grid-template-columns: 70vw 30vw;
+  -ms-grid-columns: 65vw 35vw;
+      grid-template-columns: 65vw 35vw;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
 
-#record-container #record-panel .panel .table7x3 .header {
+#record-container #record-panel .panel .table65x35 .header {
   text-align: left;
   color: #626262;
   font-size: 1.5rem;
@@ -319,49 +399,156 @@ button {
   border-bottom: 2px solid #DADADA;
 }
 
-#record-container #record-panel .panel .table7x3 span {
+#record-container #record-panel .panel .table65x35 .header span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#record-container #record-panel .panel .table65x35 span {
   padding: 1rem 1.2rem 1rem 1.2rem;
   text-align: left;
 }
 
-#record-container #record-panel .panel .table7x3 span:first-child {
-  text-align: right;
+#record-container #record-panel .panel .table65x35 span span {
+  padding: 0px;
+}
+
+#record-container #record-panel .panel .table65x35 span:first-child {
   border-right: 2px solid #DADADA;
 }
 
-#record-container #record-panel .panel .table7x3 .row:nth-of-type(2) span {
+#record-container #record-panel .panel .table65x35 span span:first-child {
+  border-right: 0px;
+}
+
+#record-container #record-panel .panel .table65x35 .row:nth-of-type(2) span {
   padding-top: 1rem;
 }
 
-#record-container #record-panel .panel .table7x3 .row:last-of-type {
-  margin-bottom: 3rem;
+#record-container #record-panel .panel .table65x35 .row:last-of-type {
+  margin-bottom: 5rem;
 }
 
-#record-container #record-panel .panel .table7x3 .row span {
+#record-container #record-panel .panel .table65x35 .row span {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
-#record-container #record-panel .panel .table7x3 .row span:first-child {
+#record-container #record-panel .panel .table65x35 .row span:first-child {
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 300;
   color: #5E5E5E;
 }
 
-#record-container #record-panel .panel .table7x3 .row span:last-child {
+#record-container #record-panel .panel .table65x35 .row span:last-child {
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 300;
   color: #8F8F8F;
 }
 
-#record-container #record-panel .panel .table7x3 .flag {
+#record-container #record-panel .panel .table65x35 .row .penalty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty span {
+  padding: 0px;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty :first-child {
+  border: none;
+  margin-right: auto;
+  color: #1E1313;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty :last-child {
+  color: #FF5F5F;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0px 0px 0px 0px;
+  padding-top: 0px;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls span {
+  width: 33%;
+  padding: 0px;
+  text-align: center;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls .add, #record-container #record-panel .panel .table65x35 .row .penalty-controls .remove {
+  padding: 0px;
+  font-size: 2.5rem;
+  -webkit-transition: color 200ms linear;
+  transition: color 200ms linear;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls .add:not(:disabled), #record-container #record-panel .panel .table65x35 .row .penalty-controls .remove:not(:disabled) {
+  color: #242424;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls .add:disabled, #record-container #record-panel .panel .table65x35 .row .penalty-controls .remove:disabled {
+  color: #FF5F5F;
+}
+
+#record-container #record-panel .panel .table65x35 .row .penalty-controls .count {
+  font-family: Supermercado One;
+  color: #FF5F5F;
+  font-size: 2rem;
+  padding-top: 2px;
+}
+
+#record-container #record-panel .panel .table65x35 .flag {
   background-color: #9AF9A3;
 }
 
-#record-container #record-panel .panel .table7x3 .flag span:first-child, #record-container #record-panel .panel .table7x3 .flag span:last-child {
+#record-container #record-panel .panel .table65x35 .flag span:first-child, #record-container #record-panel .panel .table65x35 .flag span:last-child {
   color: #000000;
+}
+
+#record-container #record-panel .panel .title-pad span {
+  font-size: 1.7rem;
+  padding: 1rem 1.2rem 0.5rem 1.2rem;
+}
+
+#record-container #record-panel .panel .mini-points {
+  font-family: Supermercado One;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#record-container #record-panel .panel .mini-points h4 {
+  font-size: 2rem;
+  margin: 0px 4px 0px 0px;
+  font-weight: 400;
+}
+
+#record-container #record-panel .panel .mini-points p {
+  font-size: 1rem;
+  margin: 4px 0px 0px 0px;
 }
 
 #record-container #bottomBar {

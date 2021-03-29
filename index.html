@@ -63,7 +63,7 @@
 
                     <!-- Bottom list showing record of what has happened -->
                     <div class="scroll-list" id="scoreBoard-bottom">
-                        <div class="table3x7">
+                        <div class="table3x7" id="penalty-record-target">
                             <div class="header">
                                 <span>
                                     Time
@@ -72,22 +72,18 @@
                                     Events
                                 </span>
                             </div>
-                            <div class="row">
-                                <span>
-                                    01:20
-                                </span>
-                                <span>
-                                    +10 hit marker
-                                </span>
-                            </div>
-                            <div class="row">
-                                <span>
-                                    01:18
-                                </span>
-                                <span>
-                                    +1 Winch used
-                                </span>
-                            </div>
+                            
+                            <template id="penalty-record-template">
+                                <div class="row">
+                                    <span>
+                                        01:20
+                                    </span>
+                                    <span>
+                                        +10 hit marker
+                                    </span>
+                                </div>
+                            </template>
+                            
                             <div class="row flag">
                                 <span>
                                     01:14
@@ -129,41 +125,59 @@
 
                     <!-- Bottom content -->
                     <div class="bottom-content" id="penalties-bottom">
-                        <div class="table7x3">
-                            <div class="header">
+                        <div class="table65x35" id="penalty-board-target">
+                            <div class="header title-pad">
                                 <span>
-                                    Time
+                                    Penalties
                                 </span>
-                                <span>
-                                    Events
-                                </span>
-                            </div>
-                            <div class="row">
-                                <span>
-                                    01:20
-                                </span>
-                                <span>
-                                    +10 hit marker
+                                <span class="mini-points">
+                                    <h4 class="point-counter">
+                                        100
+                                    </h4>
+                                    <p>
+                                        pts.
+                                    </p>
                                 </span>
                             </div>
-                            <div class="row">
-                                <span>
-                                    01:18
-                                </span>
-                                <span>
-                                    +1 Winch used
-                                </span>
-                            </div>
-                            <div class="row flag">
-                                <span>
-                                    01:14
-                                </span>
-                                <span>
-                                    Reached Flag 2
-                                </span>
-                            </div>
+
+                            <template id="penalty-control-template">
+                                <div class="row">
+                                    <span class="penalty">
+                                        <span>
+                                            Reverse
+                                        </span>
+                                        <span>
+                                            +0
+                                        </span>
+                                    </span>
+                                    <span class="penalty-controls" style="padding-top: 0px;">
+                                        <button date-type="add" class="material-icons add ">
+                                            add
+                                        </button>
+                                        <span data-type="count" class="count">
+                                            0
+                                        </span>
+                                        <button data-type="remove" class="material-icons remove">
+                                            remove
+                                        </button>
+                                    </span>
+                                </div>
+                            </template> 
                         </div>
                     </div>
+
+                    <script>
+                        {
+                            // Fix heights
+                            let fixHeight = () => {
+                                document.getElementById('penalties-bottom')
+                                .style.height = `calc(100% - ${document.getElementById('penalties-top').clientHeight}px)`
+                            }
+                            window.addEventListener('load', fixHeight);
+                            window.addEventListener('resize', fixHeight)
+                        }
+                    </script>
+
                 </div>
 
             </span>

@@ -1,6 +1,6 @@
 import {debounce} from './util.js'
 
-class container {
+class Container {
     constructor ({panelID, hrefClass}) {
         // Panel container and array of trigger elements
         this.__panel = document.getElementById(panelID);
@@ -78,4 +78,4 @@ class container {
     }
 }
 
-export const Container = container;
+export {Container};
