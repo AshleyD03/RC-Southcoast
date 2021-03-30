@@ -102,7 +102,7 @@ class Record {
     constructor (msg, classes=[]) {
         // Set time or recording
         this._msg = msg;
-        this._time = (new Date()).getTime();
+        this._time = window.clock._visual.substring(0, 5)
 
         // Clone node and seperate parts
         this._node = document.getElementById('penalty-record-template').content.cloneNode(true).children[0];
@@ -115,4 +115,4 @@ class Record {
     }
 }
 
-export {PenaltyBoard}
+export {PenaltyBoard, Controller, Record}

@@ -48,11 +48,8 @@ class Container {
             if (this.__isMovingTimeouts.length === 0 ) {
                 this.__isMoving = false;
             }
-            console.log(this.__isMovingTimeouts)
         }.bind(this), 1000)
 
-        
-        console.log(this.__isMovingTimeouts)
         this.__isMovingTimeouts.push(timeout)
 
         let target = document.getElementById(id);

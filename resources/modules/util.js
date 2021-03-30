@@ -12,4 +12,11 @@ const debounce = (func, wait) => {
     };
 };
 
-export {debounce};
+const swapClass = (oldClass, newClass) => (array) => {
+  array.forEach(e => {
+      e.classList.remove(oldClass);
+      e.classList.add(newClass)
+  })
+}
+
+export {debounce, swapClass};
