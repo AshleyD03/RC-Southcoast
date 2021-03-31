@@ -1,14 +1,14 @@
-import { PanelContainer } from './modules/container.js'
+import { SwipeContainer } from './modules/container.js'
 import { PenaltyBoard } from './modules/penalties.js'
 import { Clock } from './modules/clock.js'
 import { CustomRecorder } from './modules/Record.js'
 
 // Swipe containers 
-window.mainContainer = new PanelContainer ({
+window.mainContainer = new SwipeContainer ({
     panelID: 'record-panel',
     hrefClass: 'record-panel-button',
 })
-window.scoreBoardTop = new PanelContainer ({
+window.scoreBoardTop = new SwipeContainer ({
     panelID: 'scoreBoard-panel',
     hrefClass: 'scoreBoard-href'
 })
@@ -63,6 +63,6 @@ window.nuke = () => {
 
 // Preset commands (for testing)
 mainContainer.__hrefs[2].click()
-penaltyBoard._createController_('Banging my sister',12)
-penaltyBoard._createController_('Yuh',3)
-penaltyBoard._createController_('was an inside job', 911)
+penaltyBoard._createController_('Penalty 1',12)
+penaltyBoard._createController_('Penalty 2',3)
+penaltyBoard._createController_('Penalty 3', 911)

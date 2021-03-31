@@ -1,40 +1,29 @@
 import {debounce} from './util.js'
 
-class PanelContainer {
+/*
+    Basic container that has simple
+    click href => activate moveto
+*/
+class HrefContainer {
     constructor ({panelID, hrefClass}) {
         // Panel container and array of trigger elements
-        this.__panel = document.getElementById(panelID);
+        this.__container = document.getElementById(panelID);
         this.__hrefs = Array.from(document.getElementsByClassName(hrefClass));
 
         this.__isMoving = false;
         this.__isMovingTimeouts = [];
 
-        // Attach href triggers
+        // Create changable onclick method
+        this.__onHrefClick = (href) => {
+            this.__moveTo__(href.dataset.moveto);
+        }
+
+        // Attach onclick method
         this.__hrefs.forEach(trigger => 
             trigger.addEventListener('click', e => {
-                this.__moveTo__(trigger.dataset.moveto);
-                this.__setActive__(trigger);
+                this.__onHrefClick(trigger)
             })
         )
-
-
-        // Listen for scroll events
-        this.__onScroll__ = debounce(e => {
-            if (this.__isMoving) return 
-           
-            let pos = this.__panel.scrollLeft;
-            let count = 0;
-            for (let i = 0; i < this.__hrefs.length; i++) {
-
-                let href = this.__hrefs[i];
-                if (count < pos + 150 && count > pos - 150) return this.__setActive__(href)
-                
-                count += document.getElementById(href.dataset.moveto).clientWidth + 0.5;
-            }
-        }, 10)
-
-        this.__panel.addEventListener('scroll', this.__onScroll__)
-        this.__hrefs[0].click()
     }
 
     __moveTo__ (id) {
@@ -62,6 +51,40 @@ class PanelContainer {
         this.__isMovingTimeouts.push(timeout)
         if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
     }
+}
+
+/*
+    Extended container with active effect on hrefs
+    and swipe sensitivity to hrefs
+*/
+class SwipeContainer extends HrefContainer {
+    constructor ({panelID, hrefClass}) {
+        super({panelID, hrefClass})
+
+        // Change onHrefClick to add setActive
+        this.__onHrefClick = (href) => {
+            this.__moveTo__(href.dataset.moveto);
+            this.__setActive__(href);
+        }
+
+        // Listen for scroll events to activate hrefs
+        this.__onScroll__ = debounce(e => {
+            if (this.__isMoving) return 
+           
+            let pos = this.__container.scrollLeft;
+            let count = 0;
+            for (let i = 0; i < this.__hrefs.length; i++) {
+
+                let href = this.__hrefs[i];
+                if (count < pos + 150 && count > pos - 150) return this.__setActive__(href)
+                
+                count += document.getElementById(href.dataset.moveto).clientWidth + 0.5;
+            }
+        }, 10)
+
+        this.__container.addEventListener('scroll', this.__onScroll__)
+        this.__hrefs[0].click()
+    }
 
     __setActive__ (target) {
         // Set all Incative 
@@ -82,21 +105,48 @@ class PanelContainer {
     }
 }
 
-class BookContainer {
-    /*
-        A container with similar controls to a panel container,
-        that has 1+n slides, where the first is the home page and 
-        you can scope deeper into the book by going right into
-        the next page.
-    */
+
+/*
+    A container with similar controls to a panel container,
+    that has 1+n slides, where the first is the home page and 
+    you can scope deeper into the book by going right into
+    the next page.
+*/
+class BookContainer extends HrefContainer {
     constructor ({bookID, hrefClass}) {
-        this.__book = document.getElementById(panelID);
-        this.__pages = this.__book.children;
-        this.__visPages = [this.__pages[0]];
+        super({bookID, hrefClass})
+        
+        // Take apart container for pages
+        this.__pages = this.__container.children;
+        this.__visiblePages = [this.__pages[0]];
         this.__homePage = this.__pages[0];
         this.__hrefs = Array.from(document.getElementsByClassName(hrefClass));
 
+        // Change onHrefClick to make page appear 
+        this.__onHrefClick = (href) => {
+            // Make page appear, hide others and moveTo
+        }
+
+        // Listen for scroll events
+        this.__onScroll__ = debounce(e => {
+            if (this.__isMoving) return 
+           
+            let pos = this.__container.scrollLeft;
+            let count = 0;
+            for (let i = 0; i < this.__hrefs.length; i++) {
+
+                let href = this.__hrefs[i];
+                if (count < pos + 150 && count > pos - 150) {
+                    // Delete old variant 
+                    return
+                }
+                
+                count += document.getElementById(href.dataset.moveto).clientWidth + 0.5;
+            }
+        }, 10)
+
+        this.__container.addEventListener('scroll', this.__onScroll__)
     }
 }
 
-export {PanelContainer, BookContainer};
+export {SwipeContainer, BookContainer};
