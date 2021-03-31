@@ -15,6 +15,8 @@ class Clock {
             else this.time = begin;
             this.__minutes = 0;
 
+            if (this.__looper) clearInterval(this.__looper);
+
             let loop = (resolve, reject) => {
                 this.__looper = setInterval(() => {
             

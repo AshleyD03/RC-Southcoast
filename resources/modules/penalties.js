@@ -1,3 +1,5 @@
+import {Record} from './Record.js'
+
 class PenaltyBoard {
     constructor () {
         this.__target = document.getElementById('penalty-board-target');
@@ -14,7 +16,7 @@ class PenaltyBoard {
 
     _createController_ (name, value) {
         // Creates a penalty controller that can add & remove penalty
-        let controller = new Controller (name, value, this)
+        let controller = new PenaltyController (name, value, this)
         this.__target.appendChild(controller._node)
         this._controlls.push(controller)
     }
@@ -24,7 +26,7 @@ class PenaltyBoard {
     }
 }
 
-class Controller {
+class PenaltyController {
     // Contains a controller node
 
     constructor (name, value, penaltyBoard) {
@@ -79,7 +81,11 @@ class Controller {
         this._nodeCount.innerHTML = `${this.__count}`;
 
         // Add record object
-        let record = new Record(this.__message);
+        let record = new Record({
+            msg: this.__message, 
+            deleteMethod: () => this.__removeEvent__(this.__count)
+        });
+        
         this.__target.insertBefore(record._node, this.__target.children[1]);
         this.__records.push(record);
     }
@@ -92,27 +98,9 @@ class Controller {
         this._nodeCount.innerHTML = `${this.__count}`;
 
         // Remove record object
-        this.__target.removeChild(this.__records[n]._node);
-        this.__records.splice(n, 1)
+        this.__records[n]._removeNode_();
+        this.__records.splice(n, 1);
     }
 }
 
-class Record {
-    // Contains a record node
-    constructor (msg, classes=[]) {
-        // Set time or recording
-        this._msg = msg;
-        this._time = window.clock._visual.substring(0, 5)
-
-        // Clone node and seperate parts
-        this._node = document.getElementById('penalty-record-template').content.cloneNode(true).children[0];
-        this._nodeTime = this._node.children[0];
-        this._nodeMsg = this._node.children[1];
-
-        // Apply styling
-        this._nodeTime.innerHTML = this._time;
-        this._nodeMsg.innerHTML = this._msg;
-    }
-}
-
-export {PenaltyBoard, Controller, Record}
+export {PenaltyBoard, PenaltyController}

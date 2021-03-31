@@ -84,8 +84,7 @@ button {
 
 #penalties-bottom {
   height: calc(100% - 9rem);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #record-container {
@@ -214,6 +213,12 @@ button {
 #record-container #record-panel .panel .points h3 {
   font-size: 4rem;
   margin: 0px 4px 0px 0px;
+}
+
+#record-container #record-panel .panel .points .center {
+  width: 220px;
+  margin-left: calc(50vw - 110px);
+  text-align: left;
 }
 
 #record-container #record-panel .panel .points p {
@@ -379,6 +384,7 @@ button {
 }
 
 #record-container #record-panel .panel .table65x35 {
+  height: 100%;
   width: 100%;
   max-height: 100%;
   overflow-y: scroll;
@@ -526,6 +532,21 @@ button {
 
 #record-container #record-panel .panel .table65x35 .flag span:first-child, #record-container #record-panel .panel .table65x35 .flag span:last-child {
   color: #000000;
+}
+
+#record-container #record-panel .panel .penalties-alert-container {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #5E5E5E;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  bottom: 1rem;
 }
 
 #record-container #record-panel .panel .title-pad span {

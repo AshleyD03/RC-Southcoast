@@ -42,18 +42,22 @@ class Container {
         
         this.__isMoving = true;
         
+        let target = document.getElementById(id);
+        
         let timeout = setTimeout(function () {
             let index = this.__isMovingTimeouts.indexOf(timeout);
             this.__isMovingTimeouts.splice(index, 1);
-            if (this.__isMovingTimeouts.length === 0 ) {
+            if (this.__isMovingTimeouts.length === 0 ) {        
+                if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
                 this.__isMoving = false;
             }
         }.bind(this), 1000)
 
         this.__isMovingTimeouts.push(timeout)
 
-        let target = document.getElementById(id);
-        if (target) target.scrollIntoView({behavior: "smooth"})
+        
+        if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+        
     }
 
     __setActive__ (target) {
