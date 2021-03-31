@@ -19,4 +19,16 @@ const swapClass = (oldClass, newClass) => (array) => {
   })
 }
 
-export {debounce, swapClass};
+const buttonTimeout = (obj, dur=1000) => {
+  let color = window.getComputedStyle(obj).getPropertyValue('color');
+  obj.disabled = true;
+  obj.style.color = '#FF5F5F'
+  console.log(obj)
+
+  setTimeout(function() {
+      obj.disabled = false;
+      obj.style.color = color;
+  }, dur);
+}
+
+export {debounce, swapClass, buttonTimeout};

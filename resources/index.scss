@@ -314,8 +314,7 @@ $sectionHeight: calc(100% - 4rem);
                         }   
                         .add, .remove {
                             padding: 0px;
-                            font-size: 2.5rem;
-                            transition: color 200ms linear;
+                            font-size: 2.5rem;;
                         }
 
                         .add:not(:disabled), .remove:not(:disabled) {
@@ -358,7 +357,7 @@ $sectionHeight: calc(100% - 4rem);
             .penalties-alert-container {
                 z-index: 2;
                 width: 100%;
-                height: calc(100% + 2rem);
+                height: calc(100% + 5rem);
                 pointer-events: none;
                 display: flex;
                 align-items: center;
@@ -370,7 +369,7 @@ $sectionHeight: calc(100% - 4rem);
                 bottom: 100%;
 
                 .alert {
-                    width: 60%;
+                    width: 85%;
                     height: 1rem;
                     padding: 1rem;
                     pointer-events: all;
@@ -378,8 +377,8 @@ $sectionHeight: calc(100% - 4rem);
                     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
                     background: #ff53537a;
                     backdrop-filter: blur(7px);
-                    transition: margin 550ms cubic-bezier(0.075, 0.82, 0.165, 1);
-                    margin-bottom: 1.5rem;
+                    transition: margin 1000ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 2500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                    margin-bottom: 0rem;
 
                     display: flex;
                     align-items: center;
@@ -387,6 +386,15 @@ $sectionHeight: calc(100% - 4rem);
 
                     :first-child {
                         margin-right: auto;
+                    }
+
+                    * {    
+                        background: transparent;
+                        font-size: 1.5rem;
+                    }
+
+                    .material-icons-outlined {
+                        font-size: 2rem;
                     }
                 }
             }
@@ -432,15 +440,15 @@ $sectionHeight: calc(100% - 4rem);
                     justify-content: center;
                     padding: 0rem;
                     margin: 0.5rem 0rem 0.5rem 0rem;
-                    
-                    .material-icons, .material-icons-outlined {
-                        font-size: 2.5rem;
-                        margin: 0rem;
-                    }
+                }
 
-                    .pause-clock.material-icons, .unpause-clock.material-icons {
-                        color: #FF5F5F;
-                    }
+                .material-icons, .material-icons-outlined {
+                    font-size: 2.5rem;
+                    margin: 0rem;
+                }
+
+                .pause-clock.material-icons, .unpause-clock.material-icons {
+                    color: #FF5F5F;
                 }
 
                 :last-child {

@@ -1,4 +1,5 @@
 import {Record} from './Record.js'
+import { buttonTimeout } from './util.js';
 
 class PenaltyBoard {
     constructor () {
@@ -51,16 +52,9 @@ class PenaltyController {
         nodeName.innerHTML = this.__name;
         nodeValue.innerHTML = `+${this.__value}`;
 
-        let timeout = (obj) => {
-            obj.disabled = true;
-            setTimeout(function() {
-                obj.disabled = false;
-            }, 1000);
-        }
-
         // Add event
         nodeAdd.addEventListener('click', e => {
-            timeout(nodeAdd)
+            buttonTimeout(nodeAdd)
 
             // Alter values
             this.__recordEvent__();
@@ -69,7 +63,7 @@ class PenaltyController {
         // Remove event
         nodeRemove.addEventListener('click', e => {
             if (this.__count < 1) return 
-            timeout(nodeRemove);
+            buttonTimeout(nodeRemove);
             this.__removeEvent__();
         })
     }
@@ -83,7 +77,7 @@ class PenaltyController {
         // Add record object
         let record = new Record({
             msg: this.__message, 
-            deleteMethod: () => this.__removeEvent__(this.__count)
+            deleteMethod: () => this.__removeEvent__(this.__count - 1)
         });
         
         this.__target.insertBefore(record._node, this.__target.children[1]);

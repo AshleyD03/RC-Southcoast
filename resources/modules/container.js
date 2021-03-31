@@ -44,14 +44,14 @@ class Container {
         
         let target = document.getElementById(id);
         
-        let timeout = setTimeout(function () {
+        let timeout = setTimeout(() => {
             let index = this.__isMovingTimeouts.indexOf(timeout);
             this.__isMovingTimeouts.splice(index, 1);
             if (this.__isMovingTimeouts.length === 0 ) {        
                 if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
                 this.__isMoving = false;
             }
-        }.bind(this), 1000)
+        }, 1000)
 
         this.__isMovingTimeouts.push(timeout)
 

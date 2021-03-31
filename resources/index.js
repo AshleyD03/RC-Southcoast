@@ -1,6 +1,7 @@
 import { Container } from './modules/container.js'
 import { PenaltyBoard } from './modules/penalties.js'
 import { Clock } from './modules/clock.js'
+import { CustomRecorder } from './modules/Record.js'
 
 // Swipe containers 
 window.mainContainer = new Container ({
@@ -18,8 +19,42 @@ window.clock = new Clock('time-counter');
 // Link penalty board
 window.penaltyBoard = new PenaltyBoard();
 
+// Construct flag addition
+window.flagRecorder = new CustomRecorder({
+    onClickClass: 'add-flag',
+    classes: ['flag'],
+    message: 'Reached Flag 1',
+    initMethod: (x) => {
+        x.__flagVal = 0;
+        x.__setFlagCounters__ = () => {
+            Array.from(document.getElementsByClassName('flag-counter'))
+            .forEach(ele => {
+                ele.innerHTML = `Flag ${x.__flagVal}`
+            })
+        }
+    }, 
+    trigger: (x) => {
+        x.__flagVal++
+        x.__message = `Reached Flag ${x.__flagVal}`;
+        x.__setFlagCounters__();
+    },
+    deleteTrigger: (x) => {
+        x.__flagVal -= 1;
+        x.__setFlagCounters__();
+    }
+})
+
+// Command to move into yuri mode
+window.yuri = () => {
+    Array.from(document.getElementsByTagName('img')).forEach(img => {
+        let src = img.getAttribute('src');
+        if (src === "resources/images/PlayerIconSerious.webp") {
+            img.setAttribute('src', "resources/images/PlayerIcon.webp")
+        }
+    })
+}
+
 // Preset commands (for testing)
-mainContainer.__hrefs[1].click()
-penaltyBoard._createController_('add',12)
-penaltyBoard._createController_('nut',4)
-penaltyBoard._createController_('nut',4)
+penaltyBoard._createController_('Banging my sister',12)
+penaltyBoard._createController_('Yuh',3)
+penaltyBoard._createController_('was an inside job', 911)

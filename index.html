@@ -31,11 +31,11 @@
                             <span class="slide" id="scoreBoard-points">
                                 <center>
                                     <div class="circle-image-big drop-shadow">
-                                        <img src="resources/images/PlayerIcon.webp" alt="player icon">
+                                        <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
                                     </div>
                                     <div class="points">
                                         <h2 class="point-counter">
-                                            100
+                                            0
                                         </h2>
                                         <p>
                                             pts.
@@ -45,11 +45,11 @@
                             </span><span class="slide" id="scoreBoard-clock">
                                 <center>
                                     <div class="circle-image-big">
-                                        <img src="resources/images/ClockIcon.webp" alt="player icon">
+                                        <img src="resources/images/ClockIcon.webp" alt="clock icon">
                                     </div>
                                     <div class="points" style="justify-content: flex-start;">
                                         <h3 class="time-counter center">
-                                            01:32:02
+                                            00:00:00
                                         </h3>
                                     </div>
                                 </center>
@@ -83,15 +83,7 @@
                                     </span>
                                 </div>
                             </template>
-                            
-                            <div class="row flag">
-                                <span>
-                                    01:14
-                                </span>
-                                <span>
-                                    Reached Flag 2
-                                </span>
-                            </div>
+            
                         </div>
                     </div>
                     <script>
@@ -116,10 +108,10 @@
                     <!-- Top bar with -->
                     <div class="top-bar-small flex-center" id="penalties-top">
                         <div class="circle-image-small flow-left drop-shadow">
-                            <img src="resources/images/PlayerIcon.webp" alt="player icon">
+                            <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
                         </div>
                         <div class="top-title flag-counter">
-                            Flag 2
+                            Flag 0
                         </div>
                     </div>
 
@@ -132,7 +124,7 @@
                                 </span>
                                 <span class="mini-points">
                                     <h4 class="point-counter">
-                                        100
+                                        0
                                     </h4>
                                     <p>
                                         pts.
@@ -171,9 +163,9 @@
                                     <span>
                                         Test Alert
                                     </span>
-                                    <span class="material-icons-outlined">
+                                    <button class="material-icons-outlined">
                                         restart_alt
-                                    </span>
+                                    </button>
                                 </div>
                             </template>
                         </div>
@@ -184,10 +176,8 @@
                         <div class="time-counter">
                             00:00:00
                         </div>
-                        <button>
-                            <div class="material-icons add-flag">
-                                sports_score
-                            </div>
+                        <button class="material-icons add-flag">
+                            sports_score
                         </button>
                         <button>
                             <div class="material-icons-outlined pause-clock">
@@ -200,21 +190,6 @@
                             </div>
                         </button>
                     </div>
-
-                    <script>
-                        {
-                            /*
-                            // Fix heights
-                            let fixHeight = () => {
-                                document.getElementById('penalties-bottom')
-                                .style.height = `calc(100% - ${document.getElementById('penalties-top').clientHeight}px)`
-                            }
-                            window.addEventListener('load', fixHeight);
-                            window.addEventListener('resize', fixHeight)
-                            */
-                        }
-                    </script>
-
                 </div>
 
             </span>
