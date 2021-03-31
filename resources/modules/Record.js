@@ -34,7 +34,8 @@ class Record {
         let undo = this._alertNode.children[1];
 
         // Add styling 
-        this._alertNode.classList.add(...this.__classes)
+        this._alertNode.classList.add(...this.__classes);
+        this._alertNode.style.transition = 'margin 1000ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 500ms cubic-bezier(0.075, 0.82, 0.165, 1)';
         title.innerHTML = this._msg;
         Array.from(target.children).forEach(tar => tar.style.marginBottom = '1rem');
     
@@ -43,8 +44,8 @@ class Record {
             this._alertNode.style.marginBottom = '7rem';
         }, 10)
 
-        let timeDip = setTimeout(() => { this._alertNode.style.opacity = 0;}, 1500)
-        let timeDel = setTimeout(() => { this._alertNode.remove();}, 3000)
+        let timeDip = setTimeout(() => { this._alertNode.style.opacity = 0;}, 2000)
+        let timeDel = setTimeout(() => { this._alertNode.remove();}, 2500)
 
         // Click to undo
         undo.addEventListener('click', e => {
@@ -56,8 +57,8 @@ class Record {
             clearTimeout(timeDip);
             clearTimeout(timeDel);
 
-            setTimeout(() => { this._alertNode.style.opacity = 0;}, 1500)
-            setTimeout(() => { this._alertNode.remove();}, 3000)
+            setTimeout(() => { this._alertNode.style.opacity = 0;}, 500)
+            setTimeout(() => { this._alertNode.remove();}, 1000)
         })
 
         // Append child

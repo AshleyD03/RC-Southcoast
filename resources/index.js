@@ -1,14 +1,14 @@
-import { Container } from './modules/container.js'
+import { PanelContainer } from './modules/container.js'
 import { PenaltyBoard } from './modules/penalties.js'
 import { Clock } from './modules/clock.js'
 import { CustomRecorder } from './modules/Record.js'
 
 // Swipe containers 
-window.mainContainer = new Container ({
+window.mainContainer = new PanelContainer ({
     panelID: 'record-panel',
     hrefClass: 'record-panel-button',
 })
-window.scoreBoardTop = new Container ({
+window.scoreBoardTop = new PanelContainer ({
     panelID: 'scoreBoard-panel',
     hrefClass: 'scoreBoard-href'
 })
@@ -49,12 +49,20 @@ window.yuri = () => {
     Array.from(document.getElementsByTagName('img')).forEach(img => {
         let src = img.getAttribute('src');
         if (src === "resources/images/PlayerIconSerious.webp") {
-            img.setAttribute('src', "resources/images/PlayerIcon.webp")
+            img.setAttribute('src', "resources/images/Yuri.webp")
         }
     })
 }
 
+// Oh god...
+window.nuke = () => {
+    Array.from(document.querySelectorAll('body *')).forEach(ele => {
+        ele.style.backgroundImage = 'url(resources/images/Yuri.webp)'
+    })
+}
+
 // Preset commands (for testing)
+mainContainer.__hrefs[2].click()
 penaltyBoard._createController_('Banging my sister',12)
 penaltyBoard._createController_('Yuh',3)
 penaltyBoard._createController_('was an inside job', 911)
