@@ -9,7 +9,19 @@ class HrefContainer {
         // Panel container and array of trigger elements
         this.__container = document.getElementById(panelID);
         this.__hrefs = Array.from(document.getElementsByClassName(hrefClass));
+        
+        // Array of href with null destinations
+        this.__dirtyHrefs = [];
+        for (let i = 0; i < this.__hrefs.length; i++) {
+            let href = this.__hrefs[i];
+            if (document.getElementById(href.dataset.moveto) === null) {
+                this.__hrefs.splice(i, 1);
+                this.__dirtyHrefs.push(href);
+                i--;
+            }
+        }
 
+        // Moving properties
         this.__isMoving = false;
         this.__isMovingTimeouts = [];
 
@@ -19,7 +31,7 @@ class HrefContainer {
         }
 
         // Attach onclick method
-        this.__hrefs.forEach(trigger => 
+        [...this.__hrefs, ...this.__dirtyHrefs].forEach(trigger => 
             trigger.addEventListener('click', e => {
                 this.__onHrefClick(trigger)
             })
@@ -42,7 +54,6 @@ class HrefContainer {
 
             // If array empty change boolean and ensure destination
             if (this.__isMovingTimeouts.length === 0 ) {        
-                if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
                 this.__isMoving = false;
             }
         }, 1000)
@@ -113,39 +124,57 @@ class SwipeContainer extends HrefContainer {
     the next page.
 */
 class BookContainer extends HrefContainer {
-    constructor ({bookID, hrefClass}) {
-        super({bookID, hrefClass})
+    constructor ({panelID, hrefClass}) {
+        super({panelID, hrefClass})
         
         // Take apart container for pages
         this.__pages = this.__container.children;
         this.__visiblePages = [this.__pages[0]];
         this.__homePage = this.__pages[0];
-        this.__hrefs = Array.from(document.getElementsByClassName(hrefClass));
+
+        // Hide all pages beside homepage
+        this.__subPages = [...this.__pages];
+        this.__subPages.splice(0, 1);
+        this.__subPages.forEach(page => page.style.display = 'none');
 
         // Change onHrefClick to make page appear 
         this.__onHrefClick = (href) => {
             // Make page appear, hide others and moveTo
+            let id = href.dataset.moveto;
+
+            // Get target to moveto
+            let target;
+            if (id === 'pageback') {
+                target = this.__visiblePages[(this.__visiblePages.length - 2)];
+            }
+            else {
+                target = document.getElementById(id);
+            }
+
+            // Check if needs to be added to array & displayed
+            let index = this.__visiblePages.indexOf(target);
+            if (index === -1) {
+                this.__visiblePages.push(target);
+                target.style.display = 'inline-block'; 
+            }       
+            
+            this.__moveTo__(target.id);
         }
 
         // Listen for scroll events
         this.__onScroll__ = debounce(e => {
-            if (this.__isMoving) return 
-           
+        
             let pos = this.__container.scrollLeft;
-            let count = 0;
-            for (let i = 0; i < this.__hrefs.length; i++) {
+            let width = this.__homePage.clientWidth;
 
-                let href = this.__hrefs[i];
-                if (count < pos + 150 && count > pos - 150) {
-                    // Delete old variant 
-                    return
-                }
-                
-                count += document.getElementById(href.dataset.moveto).clientWidth + 0.5;
+            // Remove right element
+            if (pos % width === 0 && pos/width !== this.__visiblePages.length - 1) {
+                this.__visiblePages.pop().style.display = 'none';
             }
-        }, 10)
-
+        }, 50)
         this.__container.addEventListener('scroll', this.__onScroll__)
+
+
     }
 }
 

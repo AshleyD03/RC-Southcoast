@@ -1,4 +1,4 @@
-import { SwipeContainer } from './modules/container.js'
+import { SwipeContainer, BookContainer } from './modules/container.js'
 import { PenaltyBoard } from './modules/penalties.js'
 import { Clock } from './modules/clock.js'
 import { CustomRecorder } from './modules/Record.js'
@@ -11,6 +11,12 @@ window.mainContainer = new SwipeContainer ({
 window.scoreBoardTop = new SwipeContainer ({
     panelID: 'scoreBoard-panel',
     hrefClass: 'scoreBoard-href'
+})
+
+// Book container
+window.settingsContainer = new BookContainer ({
+    panelID: 'settings-bottom',
+    hrefClass: 'settings-moveto'
 })
 
 // Set up clock

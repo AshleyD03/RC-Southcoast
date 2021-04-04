@@ -212,47 +212,80 @@
                     <!-- A dynamic slide container that adds and takes away slides as needed -->
                     <div class="bottom-content slideshow" id="settings-bottom">
 
-                        <!-- Main settings page -->
-                        <div class="slide">
+                        <div class="slide" id="settings-home">
+                            
+                            <!-- Main settings page -->
                             <div class="headline">
                                 Home
                             </div>
 
                             <div class="content">
-                                <button class="pill">
+                                <button class="pill settings-moveto" data-moveto="settings-personalise">
+                                    <span class="material-icons-outlined">
+                                        account_circle
+                                    </span>
                                     <span>
                                         Personalise
                                     </span>
-                                    <span class="material-icons">
-                                        navigate_next
-                                    </span>
                                 </button>
 
-                                <button class="pill">
-                                    <span>
-                                        Game Mode
+                                <button class="pill settings-moveto" data-moveto="settings-gamemode">
+                                    <span class="material-icons-outlined">
+                                        sports_basketball
                                     </span>
-                                    <span class="material-icons">
-                                        navigate_next
+                                    <span>
+                                        Game mode
                                     </span>
                                 </button>
                             </div>
-                        </div>
 
-                        <!-- Create new pages to slide into-->
-                        
-                        <div class="slide" id="settings-personalise">
+                        </div><div class="slide" id="settings-personalise">
+
+                            <!-- Personalise Page -->
                             <div class="headline">
-                                <span class="material-icons">
-                                    navigate_next
+                                <span class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
                                 </span>
                                 Personalise
                             </div>
 
                             <div class="content">
                                 <div class="header">
-                                    Visual
+                                    Personalise
                                 </div>
+
+                                <button class="pill settings-moveto" data-moveto="settings-gamemode">
+                                    game mode
+                                </button>
+
+                                <button class="pill save">
+                                    <span>
+                                        Save
+                                    </span>
+                                    <span class="material-icons">
+                                        check
+                                    </span>
+                                </button>
+                            </div>
+
+                        </div><div class="slide" id="settings-gamemode">
+
+                            <!-- Settings Page -->                            
+                            <div class="headline">
+                                <span class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </span>
+                                Game mode
+                            </div>
+
+                            <div class="content">
+                                <div class="header">
+                                    Game mode
+                                </div>
+
+                                <button class="pill settings-moveto" data-moveto="settings-personalise">
+                                    personalise
+                                </button>
 
                                 <button class="pill save">
                                     <span>

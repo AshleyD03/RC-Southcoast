@@ -80,9 +80,9 @@ button {
 .slideshow .slide .pill {
   width: calc(100% - 3rem);
   height: 3rem;
-  padding: 4px 0.5rem 0rem 1.5rem;
+  padding: 0px 0.5rem 0rem 1.5rem;
   margin: 1rem 0rem 0rem 0rem;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-family: sunflower;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -96,9 +96,9 @@ button {
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.slideshow .slide .pill .material-icons {
-  margin-left: auto;
-  font-size: 2.5rem;
+.slideshow .slide .pill .material-icons, .slideshow .slide .pill .material-icons-outlined {
+  margin-top: 0px;
+  margin-right: 1rem;
 }
 
 .slideshow .slide .pill:active {
