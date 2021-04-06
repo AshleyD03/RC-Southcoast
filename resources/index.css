@@ -10,7 +10,7 @@ body {
 }
 
 button {
-  background-color: inherit;
+  background-color: transparent;
   border: none;
   outline: none;
 }
@@ -38,10 +38,16 @@ button {
   scroll-snap-align: start;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
 }
 
 .slideshow .slide .headline {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
   width: calc(100% - 2.4rem);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -52,10 +58,15 @@ button {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  font-weight: 1000;
-  font-size: 1.7rem;
-  padding: 1rem 1.2rem 0.5rem 1.2rem;
-  border-bottom: 2px solid #DADADA;
+  font-weight: 500;
+  font-size: 1.6rem;
+  padding: 0.6rem 1.2rem 0.6rem 1.2rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  background: rgba(91, 91, 91, 0.041);
+  -webkit-backdrop-filter: blur(7px);
+          backdrop-filter: blur(7px);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .slideshow .slide .headline .material-icons {
@@ -63,6 +74,7 @@ button {
 }
 
 .slideshow .slide .content {
+  scroll-snap-align: start;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -73,32 +85,53 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: calc(100% - 5rem);
+  min-height: calc(100% - 6rem);
+  margin-top: 20vh;
+  margin-bottom: 20vh;
+  padding-top: 4rem;
   width: 100%;
 }
 
 .slideshow .slide .pill {
-  width: calc(100% - 3rem);
+  width: calc(100%);
   height: 3rem;
-  padding: 0px 0.5rem 0rem 1.5rem;
-  margin: 1rem 0rem 0rem 0rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   font-size: 1.4rem;
   font-family: sunflower;
+  border-top: 2px solid #4949491e;
+  margin: 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 100px;
-  background: #E2E2E2;
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #f5f5f5;
 }
 
 .slideshow .slide .pill .material-icons, .slideshow .slide .pill .material-icons-outlined {
   margin-top: 0px;
   margin-right: 1rem;
+}
+
+.slideshow .slide .pill:last-of-type {
+  border-bottom: 2px solid #4949491e;
+}
+
+.slideshow .slide input.pill {
+  width: calc(100% - 2rem);
+  height: 1.5rem;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-color: #4949491e;
+  border-width: 2px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: #e2e2e28e;
+}
+
+.slideshow .slide input.pill ::after {
+  content: 'Name';
 }
 
 .slideshow .slide .pill:active {
@@ -116,13 +149,15 @@ button {
   margin-right: 0.5rem;
 }
 
-.slideshow .slide .header {
+.slideshow .slide .subheader {
   font-family: sunflower;
   text-align: left;
   width: calc(100% - 2rem);
-  padding: 4px 0.5rem 0rem 1.5rem;
-  font-weight: 1000;
-  font-size: 1.8rem;
+  padding: 0rem;
+  color: #adacac;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: 1rem 1rem 0.5rem 1rem;
 }
 
 .flex-center {
@@ -737,7 +772,7 @@ button {
   color: #606060;
 }
 
-#record-container #record-panel .panel .subbottom-content button {
+#record-container #record-panel .panel .subbottom-content button, #record-container #record-panel .panel .subbottom-content input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -747,6 +782,7 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background: transparent;
   padding: 0rem;
   margin: 0.5rem 0rem 0.5rem 0rem;
 }

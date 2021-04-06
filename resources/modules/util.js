@@ -22,8 +22,7 @@ const swapClass = (oldClass, newClass) => (array) => {
 const buttonTimeout = (obj, dur=1000) => {
   let color = window.getComputedStyle(obj).getPropertyValue('color');
   obj.disabled = true;
-  obj.style.color = '#FF5F5F'
-  console.log(obj)
+  obj.style.color = '#FF5F5F';
 
   setTimeout(function() {
       obj.disabled = false;
