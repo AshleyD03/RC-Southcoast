@@ -169,7 +169,9 @@ class BookContainer extends HrefContainer {
 
             // Remove right element
             if (pos % width === 0 && pos/width !== this.__visiblePages.length - 1) {
-                this.__visiblePages.pop().style.display = 'none';
+                let removed = this.__visiblePages.pop();
+                removed.style.display = 'none';
+                removed.dispatchEvent(new Event('pageClose'));
             }
         }, 50)
         this.__container.addEventListener('scroll', this.__onScroll__)

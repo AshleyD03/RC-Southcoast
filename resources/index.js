@@ -2,6 +2,7 @@ import { SwipeContainer, BookContainer } from './modules/container.js'
 import { PenaltyBoard } from './modules/penalties.js'
 import { Clock } from './modules/clock.js'
 import { CustomRecorder } from './modules/Record.js'
+import { Settings } from './modules/Settings.js'
 
 // Swipe containers 
 window.mainContainer = new SwipeContainer ({
@@ -49,6 +50,9 @@ window.flagRecorder = new CustomRecorder({
         x.__setFlagCounters__();
     }
 })
+
+// Initalise settings
+window.settings = new Settings() ;
 
 // Command to move into yuri mode
 window.yuri = () => {

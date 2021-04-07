@@ -31,7 +31,7 @@
                             <span class="slide" id="scoreBoard-points">
                                 <center>
                                     <div class="circle-image-big drop-shadow">
-                                        <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                                        <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                                     </div>
                                     <div class="points">
                                         <h2 class="point-counter">
@@ -108,7 +108,7 @@
                     <!-- Top bar with -->
                     <div class="top-bar-small flex-center" id="penalties-top">
                         <div class="circle-image-small flow-left drop-shadow">
-                            <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                            <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
                         <div class="top-title flag-counter">
                             Flag 0
@@ -201,7 +201,7 @@
                     <!-- Top bar with -->
                     <div class="top-bar-small flex-center" id="settings-top">
                         <div class="circle-image-small flow-left drop-shadow">
-                            <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                            <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
                         <div class="top-title">
                             Settings
@@ -216,7 +216,7 @@
                             
                             <!-- Main settings page -->
                             <div class="headline">
-                                Home
+                                <span>Home</span>
                             </div>
 
                             <div class="content">
@@ -233,7 +233,7 @@
                                     </span>
                                 </button>
 
-                                <button class="pill settings-moveto" data-moveto="settings-gamemode">
+                                <button class="pill pillend settings-moveto" data-moveto="settings-gamemode">
                                     <span class="material-icons-outlined">
                                         sports_basketball
                                     </span>
@@ -250,39 +250,50 @@
                                 <button class="material-icons settings-moveto" data-moveto="pageback">
                                     navigate_before
                                 </button>
-                                Personalise
+                                <span>
+                                    Personalise
+                                </span>
                             </div>
 
+                            <button class="pill save" id="personalise-save">
+                                <span>
+                                    Save
+                                </span>
+                                <span class="material-icons">
+                                    check
+                                </span>
+                            </button>
+
                             <div class="content">
+                                <!-- Personal Aspects-->
                                 <div class="subheader">
                                     Player
                                 </div>
-                                <input type="text" placeholder="Name" class="pill">
+                                <input type="text" placeholder="Name" id="personalise-name" class="pill personalise-inputs">
+                                <label class="pill pillend">
+                                    <input type="file" class="personalise-inputs">
+                                    <img src="resources/images/PlayerIconSerious.webp" class="icon-counter">
+                                    <span> upload... </span>
+                                </label>
 
+                                <!-- Car specs -->
                                 <div class="subheader">
                                     Specs
                                 </div>
-                                <input type="text" placeholder="Tire size" class="pill">
-                                <input type="text" placeholder="Body height" class="pill">
-
-                                <button class="pill save">
-                                    <span>
-                                        Save
-                                    </span>
-                                    <span class="material-icons">
-                                        check
-                                    </span>
-                                </button>
+                                <input type="text" placeholder="Tire size" class="pill personalise-inputs" id="personalise-tiresize">
+                                <input type="text" placeholder="Body height" class="pill pillend personalise-inputs" id="personalise-bodyheight">
                             </div>
 
                         </div><div class="slide" id="settings-gamemode">
 
                             <!-- Gamemode Page -->                            
                             <div class="headline">
-                                <span class="material-icons settings-moveto" data-moveto="pageback">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
                                     navigate_before
+                                </button>
+                                <span>
+                                    Game mode
                                 </span>
-                                Game mode
                             </div>
 
                             <div class="content">
