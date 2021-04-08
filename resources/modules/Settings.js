@@ -1,47 +1,61 @@
 class Form {
     constructor ({
-        inputs=[],
-        saveId=null,
-        containerId=null,
+        formMap,
+        saveId,
+        containerId,
+        onSave,
     }) {
-        this._inputs = inputs;
+        this._inputs = [];
+        formMap.forEach(form => this._inputs.push(document.getElementById(form.id)));
         this._container = document.getElementById(containerId) ?? null;
         this._saveButton = document.getElementById(saveId) ?? null;
         this.__dataURLs = {};
+        this._formMap = formMap;
 
-        // Save function, that is changed in inherit
-        this.__save__ = () => {}
-        if (this._saveButton) this._saveButton.addEventListener('click', e => {
-            this.__save__();
-        })
-        
-        // === Initalisation functions ===
-        this.__initFormUpdate__ = (map) => {
-            delete this.__initFormUpdate__;
-            return () => {    
-                // set form values to properties
-                map.forEach(field => {
-                    let ele = document.getElementById(field.id);
-                    ele.value = field.value;
-                });
-            }
-        }
-        this._updateForm_ = () => {};
-
-        this.__initSave__ = (map) => () => {
-            // set properties to form values
-            map.forEach(field => {
+        // Update form method
+        this._updateForm_ = () => {    
+            // set form values to properties
+            this._formMap.forEach(field => {
                 let ele = document.getElementById(field.id);
-                field.value = ele.dataset.value;
-            })
+                let type = ele.getAttribute('type');
+                switch (type) {
+                    case 'text':
+                        ele.value = field.value ?? field.preset;
+                        break;
+                    
+                    case 'file':
+                        let img = ele.nextElementSibling;
+                        img.src = field.value ?? img.src;
+                        let text = img.nextElementSibling;
+                        text.innerHTML = 'upload...'
+                        break;
+                }
+                ele.dataset.value = field.value ?? field.preset;
+            });
         }
+
+        // Save form method
+        this._onSave_ = onSave;
+        this._save_ = () => {
+            // set properties to form values
+            this._formMap.forEach(field => {
+                let ele = document.getElementById(field.id);
+                field.value = ele.dataset.value ?? field.value;
+            })
+
+            if (this._onSave_ && typeof this._onSave_ === 'function') this._onSave_()
+        }
+        if (this._saveButton) this._saveButton.addEventListener('click', this._save_)
+
 
         // === EVENT HANDLERS ==
-        this.__InputTextEvent__ = ({e, input}) => {
-
+        this.__InputTextEvent__ = (e) => {
+            let input = e.currentTarget;
+            input.dataset.value = input.value;
         }
 
-        this.__InputFileEvent__ = ({e, input}) => {
+        this.__InputFileEvent__ = (e) => {
+            let input = e.currentTarget;
             let id = input.getAttribute('id');
             let file = e.target.files[0];
             let dataURL = URL.createObjectURL(file);
@@ -68,6 +82,8 @@ class Form {
             }, 1)
         }
 
+
+
         // === EVENT LISTENERS ===
         // Attatch listeners to each input
         if (this._inputs && Array.isArray(this._inputs)) this._inputs.forEach(input => { 
@@ -78,11 +94,11 @@ class Form {
                 // Type specific change
                 switch (type) {
                     case 'text':
-                        this.__InputTextEvent__({e, input});
+                        this.__InputTextEvent__(e);
                         break;
                     
                     case 'file':
-                        this.__InputFileEvent__({e, input});
+                        this.__InputFileEvent__(e);
                         break;
                 }
 
@@ -91,6 +107,7 @@ class Form {
             })
 
         })
+
         // Attatch custom listeners to container * relating to container.js : BookContainer
         if (this._container) this._container.addEventListener('pageClose', e => {
             // Reset form
@@ -104,47 +121,19 @@ class Form {
     }
 }
 
-class Personalise extends Form {
-    constructor () {
-        super({
-            inputs: Array.from(document.getElementsByClassName('personalise-inputs')),
-            saveId: 'personalise-save',
-            containerId: 'settings-personalise',
-        });
-
-        // Personalise Fields
-        this._name = '';
-        this._imgUrl = null;
-        this._tireSize = '';
-        this._bodyHeight = '';
-
-        // create update form function with initialiser
-        this._updateForm_ = this.__initFormUpdate__([
-            {value: this._name, id: 'personalise-name'},
-            {value: this._tireSize, id: 'personalise-tiresize'},
-            {value: this._bodyHeight, id: 'personalise-bodyheight'}
-        ])
-
-        this.__save__ = () => {
-            // Specifc save for Personalise
-        }
-    }
-}
-
-class GameMode extends Form {
-    constructor () {
-        super({
-            inputs: null,
-        });
-
-
-    }
-}
-
 class Settings {
     constructor () {
-        this.gameMode = new GameMode ();
-        this.personalise = new Personalise ();
+        this.test = new Form ({
+            formMap: [
+                {value: this._name, id: 'personalise-name', preset: ''},
+                {value: this._imgUrl, id: 'personalise-img', preset: ''},
+                {value: this._tireSize, id: 'personalise-tiresize', preset: ''},
+                {value: this._bodyHeight, id: 'personalise-bodyheight', preset: ''}
+            ],
+            saveId: 'personalise-save',
+            containerId: 'settings-personalise',
+            onSave: () => console.log('saved'),
+        })
     }
 }
 
