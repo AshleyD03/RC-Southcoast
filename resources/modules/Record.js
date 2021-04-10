@@ -71,7 +71,16 @@ class Record {
 }
 
 class CustomRecorder {
-    constructor ({onClickClass='', classes=[], message=null, initMethod, trigger, deleteTrigger}){
+    constructor ({
+        onClickClass='', 
+        classes=[], 
+        message, 
+        initMethod, 
+        trigger, 
+        deleteTrigger,
+        Player
+    }){
+        this.Player = Player;
         this.__activators = Array.from(document.getElementsByClassName(onClickClass));
         this.__records = [];
         this.__message = message;
@@ -113,4 +122,32 @@ class CustomRecorder {
     }
 }
 
-export {Record, CustomRecorder};
+function flagRecorder ({
+    Player,
+}) {
+    return new CustomRecorder({
+        onClickClass: 'add-flag',
+        classes: ['flag'],
+        message: 'Reached Flag 1',
+        initMethod: (x) => {
+            x.__flagVal = 0;
+            x.__setFlagCounters__ = () => {
+                Array.from(document.getElementsByClassName('flag-counter'))
+                .forEach(ele => {
+                    ele.innerHTML = `Flag ${x.__flagVal}`
+                })
+            }
+        }, 
+        trigger: (x) => {
+            x.__flagVal++
+            x.__message = `Reached Flag ${x.__flagVal}`;
+            x.__setFlagCounters__();
+        },
+        deleteTrigger: (x) => {
+            x.__flagVal -= 1;
+            x.__setFlagCounters__();
+        },
+        Player,
+    })
+}
+export {Record, CustomRecorder, flagRecorder};

@@ -2,7 +2,10 @@ import {Record} from './Record.js'
 import { buttonTimeout } from './util.js';
 
 class PenaltyBoard {
-    constructor () {
+    constructor ({
+        Player
+    }) {
+        this.Player = Player;
         this.__target = document.getElementById('penalty-board-target');
         this.__points = 0;
         this._controlls = [];

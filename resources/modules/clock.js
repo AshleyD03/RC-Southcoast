@@ -1,7 +1,8 @@
 import {swapClass} from './util.js'
 
 class Clock {
-    constructor (className, target=null) {
+    constructor ({className, target=null, Player}) {
+        this.Player = Player;
         this.__targets = Array.from(document.getElementsByClassName(className))
         this.__time = 0;
         this.__minutes = 0;

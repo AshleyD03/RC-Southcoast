@@ -137,11 +137,7 @@ class BookContainer extends HrefContainer {
         this.__subPages.splice(0, 1);
         this.__subPages.forEach(page => page.style.display = 'none');
 
-        // Change onHrefClick to make page appear 
-        this.__onHrefClick = (href) => {
-            // Make page appear, hide others and moveTo
-            let id = href.dataset.moveto;
-
+        this.__turnToId__ = (id) => {
             // Get target to moveto
             let target;
             if (id === 'pageback') {
@@ -161,6 +157,12 @@ class BookContainer extends HrefContainer {
             this.__moveTo__(target.id);
         }
 
+        // Change onHrefClick to make page appear 
+        this.__onHrefClick = (href) => {
+            let id = href.dataset.moveto;
+            this.__turnToId__(id);
+        }
+
         // Listen for scroll events
         this.__onScroll__ = debounce(e => {
         
@@ -171,12 +173,15 @@ class BookContainer extends HrefContainer {
             if (pos % width === 0 && pos/width !== this.__visiblePages.length - 1) {
                 let removed = this.__visiblePages.pop();
                 removed.style.display = 'none';
-                removed.dispatchEvent(new Event('pageClose'));
+                removed.dispatchEvent(new Event('pageReset'));
             }
         }, 50)
         this.__container.addEventListener('scroll', this.__onScroll__)
 
-
+        // Attach method to close page on each page
+        Array.from(this.__pages).forEach(page => {
+            page._closePage_ = () => this.__turnToId__('pageback');
+        })
     }
 }
 
