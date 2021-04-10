@@ -187,13 +187,30 @@ button {
                 background-color: transparent;
                 border: none;
                 text-align: right;
+                text-overflow: ellipsis;
             }
 
             input[type=file] {
                 display: none;
             }
 
-            span, img {
+            select {
+                margin: 0rem 1rem 0rem auto;
+                border: none;
+                background-color: transparent;
+                font-size: 1.4rem;
+                text-align: right;
+                max-width: 100%;
+                width: fit-content;
+                appearance: none;
+
+                option {
+                    text-align: right;
+                    padding: 0.5rem;
+                }
+            }
+
+            label, span, img {
                 margin-left: 1rem;
             }
 
@@ -208,6 +225,19 @@ button {
                 margin: 0rem;
             }
 
+            .material-icons:active, .material-icons-outlined:active {
+                border-radius: 100px;
+                background-color: #60606025;
+            }
+
+            .add {
+                height: 100%;
+                padding-right: 1rem;
+                padding-left: 1rem;
+                font-size: 1.6rem;
+                background-color: transparent;
+            }
+
         }
 
         .pillend {
@@ -217,7 +247,6 @@ button {
         .pill:active {
             filter: brightness(0.9);
         }
-
 
         .pill.save {
             position: sticky;

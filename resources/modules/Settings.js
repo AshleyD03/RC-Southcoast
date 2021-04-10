@@ -32,6 +32,10 @@ class Form {
                         text.innerHTML = 'upload...'
                         text.style.color = '#363636fd';
                         break;
+                    case 'dropdown':
+                        ele.value = field.value ?? field.preset;
+                        ele.style.color = '#363636fd';
+                        break;
                 }
                 ele.dataset.value = field.value ?? field.preset;
             });
@@ -47,6 +51,8 @@ class Form {
                 let ele = document.getElementById(field.id);
                 field.value = ele.dataset.value ?? field.value;
             })
+
+            Promise.resolve()
 
             // Call onsave function and resolve by closing
             if (this._onSave_ && typeof this._onSave_ === 'function') {
@@ -77,6 +83,9 @@ class Form {
                     case 'file':
                         this.__InputFileEvent__(e);
                         break;
+                    case 'dropdown':
+                        this.__InputDropdownEvent__(e);
+                        break;
                 }
 
                 // Natural change
@@ -99,13 +108,13 @@ class Form {
 
         }
     }
-    __InputTextEvent__ = (e) => {
+    __InputTextEvent__ (e) {
         let input = e.currentTarget;
         input.dataset.value = input.value;
         input.style.color = 'green';
     }
 
-    __InputFileEvent__ = (e) => {
+    __InputFileEvent__ (e) {
         let input = e.currentTarget;
         let id = input.getAttribute('id');
         let file = e.target.files[0];
@@ -126,7 +135,14 @@ class Form {
         text.style.color = 'green';
     }
 
-    __InputNeutralEvent__ = () => {
+    __InputDropdownEvent__ (e) {
+        let input = e.currentTarget;
+        let value = input.options[input.selectedIndex].value;
+        input.dataset.value = value;
+        input.style.color = 'green';
+    }
+
+    __InputNeutralEvent__  () {
         this._saveButton.style.display = 'flex';
         setTimeout(() => {
             this._saveButton.style.top = `calc(100% - ${this._saveButton.clientHeight}px)`;
@@ -160,11 +176,33 @@ class PlayerSettings {
             }
         })
     }
+
+    _SetActive_ () {
+        // List of all onsave functions
+        this.Personalise._onSave_();
+    }
 }
 
 class SessionSettings {
-    constructor () {
-        
+    constructor ({
+        Session,
+    }) {
+        this.Session = Session;
+        this.GameMode = new Form ({
+            formMap: {
+                eventType: {value: 'Fun', id: 'gamemode-eventtype', preset: 'Fun'},
+                img: {value: 'Street', id: 'gamemode-ruleset', preset: 'Street'}
+            },
+            saveId: 'gamemode-save',
+            containerId: 'settings-gamemode',
+            onSave: (Form) => {
+                return new Promise((res, rej) => {
+                    // Get values from custom penalty elements 
+                    console.log('saved')
+                    res(Form)
+                })
+            }
+        })
     }
 }
 

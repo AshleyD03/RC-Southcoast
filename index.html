@@ -345,19 +345,47 @@
                                 </span>
                             </div>
 
+                            <button class="pill save" id="gamemode-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
                             <div class="content">
                                 <div class="subheader">
-                                    Game mode
+                                    Event Details
                                 </div>
 
-                                <button class="pill save">
-                                    <span>
-                                        Save Changes?
+                                <!-- Event typing -->
+                                <label class="pill" for="gamemode-eventtype">
+                                    <span>Event Type</span>
+                                    <select type="dropdown" id="gamemode-eventtype" dir="rtl">
+                                        <option value="Fun" selected>Fun</option>
+                                        <option value="Competition">Competition</option>
+                                    </select>
+                                </label>
+                                <label class="pill pillend" for="gamemode-ruleset">
+                                    <span>Rule Set</span>
+                                    <select type="dropdown" id="gamemode-ruleset" dir="rtl">
+                                        <option value="Street" selected>Street</option>
+                                        <option value="Trail">Trail</option>
+                                        <option value="Modified">Modified</option>
+                                    </select>
+                                </label>
+
+                                <!-- Penalty list to add and take away from -->
+                                <div class="subheader">
+                                    Penalties
+                                </div>
+                                <span class="pill">
+                                    <label for="gamemode-addpenalty">
+                                        Create
+                                    </label>
+                                    <input type="text" placeholder="name" id="gamemode-addpenalty" style="margin-right: 0rem;">
+                                    <span class="material-icons add">
+                                        add
                                     </span>
-                                    <span class="material-icons">
-                                        check
-                                    </span>
-                                </button>
+                                </span>
                             </div>
                         </div>
 

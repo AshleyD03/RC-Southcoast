@@ -1,5 +1,5 @@
 import { SwipeContainer, BookContainer } from './modules/container.js'
-import { Session } from './modules/session.js'
+import { Session } from './modules/Session.js'
 
 // Swipe containers 
 window.mainContainer = new SwipeContainer ({
@@ -40,3 +40,5 @@ window.nuke = () => {
         ele.style.backgroundImage = 'url(resources/images/Yuri.webp)'
     })
 }
+
+mainContainer.__hrefs[3].click()

@@ -229,13 +229,34 @@ button {
   background-color: transparent;
   border: none;
   text-align: right;
+  text-overflow: ellipsis;
 }
 
 .slideshow .slide .pill input[type=file] {
   display: none;
 }
 
-.slideshow .slide .pill span, .slideshow .slide .pill img {
+.slideshow .slide .pill select {
+  margin: 0rem 1rem 0rem auto;
+  border: none;
+  background-color: transparent;
+  font-size: 1.4rem;
+  text-align: right;
+  max-width: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.slideshow .slide .pill select option {
+  text-align: right;
+  padding: 0.5rem;
+}
+
+.slideshow .slide .pill label, .slideshow .slide .pill span, .slideshow .slide .pill img {
   margin-left: 1rem;
 }
 
@@ -249,6 +270,19 @@ button {
 
 .slideshow .slide .pill .material-icons, .slideshow .slide .pill .material-icons-outlined {
   margin: 0rem;
+}
+
+.slideshow .slide .pill .material-icons:active, .slideshow .slide .pill .material-icons-outlined:active {
+  border-radius: 100px;
+  background-color: #60606025;
+}
+
+.slideshow .slide .pill .add {
+  height: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  font-size: 1.6rem;
+  background-color: transparent;
 }
 
 .slideshow .slide .pillend {

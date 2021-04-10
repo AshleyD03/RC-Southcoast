@@ -48,7 +48,7 @@ class Player {
 class Session {
     constructor () {
         this.Players = {};
-        this.Settings = new SessionSettings();
+        this.Settings = new SessionSettings({Session: this});
     }
 
     addPlayer (params) {

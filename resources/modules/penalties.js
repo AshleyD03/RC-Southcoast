@@ -25,8 +25,20 @@ class PenaltyBoard {
         this._controlls.push(controller)
     }
 
-    _removeController_ () {
+    _removeController_ (val) {
         // Remove a penalty controller
+        let pos;
+        if (this._controlls.includes(val)) pos = this._controlls.indexOf(val);
+        else if (typeof pos === 'number') pos = val;
+        else return false
+
+        try {
+            if (this._controlls[pos]) {
+                this._controlls.splice(pos, 1)
+                return true
+            }
+        } catch {}
+        return false
     }
 }
 
