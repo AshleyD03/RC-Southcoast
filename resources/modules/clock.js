@@ -8,7 +8,7 @@ class Clock {
         this.__minutes = 0;
         this.__looper = null;
         this.__targetTime = target;
-        this._visual = '00:00';
+        this._visual = '00:00:00';
 
         this._start_ = (begin) => {
             
@@ -55,6 +55,9 @@ class Clock {
         // Unpause buttons
         unpauseButtons.forEach(but => {
             but.addEventListener('click', e => {
+                console.log(this.Player)
+                if (!this.Player.getActive()) return console.log(Player)
+
                 turnOff(pauseButtons);
                 turnOn(unpauseButtons);
                 this._unPause_();
@@ -64,6 +67,8 @@ class Clock {
         // Pause buttons
         pauseButtons.forEach(but => {
             but.addEventListener('click', e => {
+                if (!this.Player.getActive()) return console.log(Player)
+
                 turnOff(unpauseButtons);
                 turnOn(pauseButtons);
                 this._pause_();
@@ -73,6 +78,10 @@ class Clock {
 
     __setVisual__ (msg=this._visual) {
         this.__targets.forEach(target => target.innerHTML = msg)
+    }
+
+    _initVisual_ () {
+        this.__setVisual__();
     }
 
     _pause_ () {

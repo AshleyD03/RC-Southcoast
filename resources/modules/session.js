@@ -5,25 +5,43 @@ import { PlayerSettings, SessionSettings } from './Settings.js';
 
 class Player {
     constructor (params) {
-        this._isActive = true;
+        this.__isActive = true;
 
         this.Clock = new Clock({
             className: 'time-counter',
             Player: this,
         });
+
         this.PenaltyBoard = new PenaltyBoard({
             Player: this,
         });
+
         this.Settings = new PlayerSettings({
             Player: this,
         });
+
         this.FlagRecorder = flagRecorder({
             Player: this,
         });
     }
 
     setActive (a) {
-        if (a === true || a === false) this._isActive = a;
+        if (a === true) {
+            this.__isActive = a;
+            
+            // Activate visual elements
+            this.Clock._initVisual_();
+        }
+        if (a === false) {
+            this.__isActive = a;
+
+            // De-active visual elements
+            this.Clock._pause_();
+        }
+    }
+
+    getActive (a) {
+        return this.__isActive;
     }
 }
 
