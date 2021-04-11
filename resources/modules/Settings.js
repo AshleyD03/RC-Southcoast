@@ -1,12 +1,16 @@
+import { applyToClass } from "./util.js";
+
 class Form {
     constructor ({
         formMap,
         saveId,
+        formId,
         containerId,
         onSave,
     }) {
         this._container = document.getElementById(containerId) ?? null;
         this._saveButton = document.getElementById(saveId) ?? null;
+        this._formElement = document.getElementById(formId) ?? null;
         this.__dataURLs = {};
         this._formMap = formMap;
 
@@ -43,7 +47,8 @@ class Form {
 
         // Save form method
         this._onSave_ = () => onSave(this);
-        this._save_ = () => {
+        this._submit_ = e => {
+            e.preventDefault()
             this._saveButton.disabled = true;
 
             // set properties to form values
@@ -65,7 +70,7 @@ class Form {
             } else this._container.dispatchEvent(new Event('pageReset'));
 
         }
-        if (this._saveButton) this._saveButton.addEventListener('click', this._save_)
+        if (this._formElement) this._formElement.addEventListener('submit', this._submit_)
 
         // === EVENT LISTENERS ===
         // Attatch listeners to each input
@@ -166,12 +171,18 @@ class PlayerSettings {
                 bodyheight: {value: '', id: 'personalise-bodyheight', preset: ''}
             },
             saveId: 'personalise-save',
+            formId: 'personalise-form',
             containerId: 'settings-personalise',
             onSave: (Form) => {
                 return new Promise((res, rej) => {
-                    setTimeout(() => {
-                        res(Form)
-                    }, 2000)
+
+                    console.log(Form)
+                    // Apply icon
+                    let iconSrc = Form._formMap.img.value;
+                    let apply = ele => ele.src = iconSrc;
+                    applyToClass('icon-counter', apply);
+
+                    res(Form)
                 });
             }
         })
@@ -188,12 +199,15 @@ class SessionSettings {
         Session,
     }) {
         this.Session = Session;
+
+        // Gamemode settings
         this.GameMode = new Form ({
             formMap: {
                 eventType: {value: 'Fun', id: 'gamemode-eventtype', preset: 'Fun'},
                 img: {value: 'Street', id: 'gamemode-ruleset', preset: 'Street'}
             },
             saveId: 'gamemode-save',
+            formId: 'gamemode-form',
             containerId: 'settings-gamemode',
             onSave: (Form) => {
                 return new Promise((res, rej) => {
@@ -203,6 +217,49 @@ class SessionSettings {
                 })
             }
         })
+
+        // Attach custom form for branched page to change penalty value
+        this.GameMode._penalties = {};
+        this.GameMode.PenaltyForm = new Form({
+            formMap: {
+                name: {value: '', id: 'penalty-name', preset: ''},
+                value: {value: '', id: 'penalty-value', preset: ''}
+            },
+            saveId: 'penalty-save',
+            formId: 'penalty-form',
+            containerId: 'settings-gamemode-penalty',
+            onSave: (Form) => {
+                return console.log('nut')
+            }
+        });
+        
+        this.GameMode._openPenalty_ = (name) => {
+            console.log('open penalty')
+            let penalty = this.GameMode._penalties[name];
+            let formMap = this.GameMode.PenaltyForm.formMap;
+            if (penalty) {
+                document.getElementById(formMap.name.id).value = penalty.value;
+            }
+
+            // Change onsave
+            let Form = this.GameMode.PenaltyForm
+            this.GameMode.PenaltyForm._onSave_ =  () => {
+                return new Promise((res, rej) => {
+
+                    let newPenalty = {
+                        name: Form._formMap.name.value,
+                        value:  Form._formMap.value.value,
+                    }
+                    let name = newPenalty.name;
+
+                    this.GameMode._penalties[name] = newPenalty;
+                    res(Form)
+                })
+            }
+        }
+
+        document.getElementById('add-penalty').addEventListener('click', this.GameMode._openPenalty_)
+
     }
 }
 

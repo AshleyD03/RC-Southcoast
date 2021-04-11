@@ -297,13 +297,13 @@
                                 </span>
                             </div>
 
-                            <button class="pill save" id="personalise-save">
+                            <button class="pill save" form="personalise-form" type="submit" id="personalise-save">
                                 <span>
                                     Save changes ?
                                 </span>
                             </button>
 
-                            <div class="content">
+                            <form class="content" id="personalise-form">
                                 <!-- Personal Aspects-->
                                 <div class="subheader">
                                     Player
@@ -331,7 +331,7 @@
                                     <input type="text" id="personalise-bodyheight" placeholder="...">
                                 </label>
                                 
-                            </div>
+                            </form>
 
                         </div><div class="slide" id="settings-gamemode">
 
@@ -345,13 +345,13 @@
                                 </span>
                             </div>
 
-                            <button class="pill save" id="gamemode-save">
+                            <button class="pill save" form="gamemode-form" type="submit" id="gamemode-save">
                                 <span>
                                     Save changes ?
                                 </span>
                             </button>
 
-                            <div class="content">
+                            <form class="content" id="gamemode-form">
                                 <div class="subheader">
                                     Event Details
                                 </div>
@@ -377,16 +377,59 @@
                                 <div class="subheader">
                                     Penalties
                                 </div>
-                                <span class="pill">
-                                    <label for="gamemode-addpenalty">
-                                        Create
-                                    </label>
-                                    <input type="text" placeholder="name" id="gamemode-addpenalty" style="margin-right: 0rem;">
-                                    <span class="material-icons add">
+                                <label class="pill" for="add-penalty">
+                                    <span for="gamemode-addpenalty">
+                                        Add a Penalty
+                                    </span>
+                                    <span id="add-penalty" class="material-icons add settings-moveto" data-moveto="settings-gamemode-penalty">
                                         add
                                     </span>
+                                </label>
+                                <template id="penalty-settings-template">
+                                    <label class="pill">
+                                        <span class="dry">
+                                            name
+                                        </span>
+                                        <span class="small">
+                                            ???
+                                        </span>
+                                        <button class="material-icons add">
+                                            info
+                                        </button>
+                                    </label>
+                                </template>
+                            </form>
+                        </div><div class="slide" id="settings-gamemode-penalty">
+                            
+                            <!-- Gamemode Penalty Settings Page -->                            
+                            <div class="headline">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </button>
+                                <span>
+                                    Penalty
                                 </span>
                             </div>
+
+                            <button type="submit" form="penalty-form" class="pill save" id="penalty-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
+                            <form class="content" id="penalty-form">
+                                <div class="subheader">
+                                    Specifics
+                                </div>
+                                <label class="pill">
+                                    <span>Name tag</span>
+                                    <input required type="text" id="penalty-name" placeholder="new name">
+                                </label>
+                                <label class="pill pillend">
+                                    <span>Value</span>
+                                    <input required type="text" id="penalty-value" placeholder="+/-" value="+0">
+                                </label>
+                            </form>
                         </div>
 
                     </div>
