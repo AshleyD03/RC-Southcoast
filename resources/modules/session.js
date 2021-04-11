@@ -7,6 +7,7 @@ class Player {
     constructor (params) {
         this.__isActive = true;
         this.Name = params.name;
+        this.Session = params.Session;
 
         this.Clock = new Clock({
             className: 'time-counter',
@@ -53,7 +54,7 @@ class Session {
     }
 
     addPlayer (params) {
-        let newPlayer = new Player(params);
+        let newPlayer = new Player({...params, Session: this});
         this.Players[params.name] = newPlayer;
     }
 
@@ -64,6 +65,16 @@ class Session {
         
         Object.values(this.Players).forEach(player => player.isActive = false)
         target.isActive = true;
+    }
+
+    updateGameRules () {
+        // Apply changes to penalty board
+        Object.values(this.Players).forEach(player => {
+            player.PenaltyBoard._removeAllControllers_()
+            Object.values(this.Settings.GameMode._penalties).forEach(penalty => {
+                player.PenaltyBoard._createController_(penalty.name, penalty.value)
+            })
+        })
     }
     
     getActivePlayer () {

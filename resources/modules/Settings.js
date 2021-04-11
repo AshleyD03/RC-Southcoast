@@ -6,7 +6,8 @@ class Form {
         saveId,
         formId,
         containerId,
-        onSave,
+        onSave = () => {},
+        onReset = () => {}
     }) {
         this._container = document.getElementById(containerId) ?? null;
         this._saveButton = document.getElementById(saveId) ?? null;
@@ -24,6 +25,7 @@ class Form {
                 let ele = document.getElementById(field.id);
                 let type = ele.getAttribute('type');
                 switch (type) {
+                    case 'number':
                     case 'text':
                         ele.value = field.value;
                         ele.style.color = '#363636fd';
@@ -36,6 +38,7 @@ class Form {
                         text.innerHTML = 'upload...'
                         text.style.color = '#363636fd';
                         break;
+
                     case 'dropdown':
                         ele.value = field.value ?? field.preset;
                         ele.style.color = '#363636fd';
@@ -46,7 +49,10 @@ class Form {
         }
 
         // Save form method
-        this._onSave_ = () => onSave(this);
+        if (onSave && typeof onSave === 'function') this._onSave_ = () => onSave(this) ?? null;
+        else this._onSave_ = () => {return}
+
+        // Submit function
         this._submit_ = e => {
             e.preventDefault()
             this._saveButton.disabled = true;
@@ -57,23 +63,15 @@ class Form {
                 field.value = ele.dataset.value ?? field.value;
             })
 
-            Promise.resolve()
 
             // Call onsave function and resolve by closing
-            if (this._onSave_ && typeof this._onSave_ === 'function') {
-                Promise.resolve(this._onSave_())
-                .then(res => {
-                    
-                    console.log(res)
-
-                    this._container.dispatchEvent(new Event('pageReset'));
-                })
-                .catch(rej => {
-                    // Create alert
-                    console.log(rej)
-                    alert('Form not accepted')
-                })
-            } else this._container.dispatchEvent(new Event('pageReset'));
+            Promise.resolve(this._onSave_())
+            .then(res => {
+                this._container.dispatchEvent(new Event('pageReset'));
+            })
+            .catch(rej => {
+                return alert('Form not accepted')
+            })
 
         }
         if (this._formElement) this._formElement.addEventListener('submit', this._submit_)
@@ -87,6 +85,7 @@ class Form {
 
                 // Type specific change
                 switch (type) {
+                    case 'number':
                     case 'text':
                         this.__InputTextEvent__(e);
                         break;
@@ -105,11 +104,20 @@ class Form {
         })
 
         // Attatch custom listeners to container * relating to container.js : BookContainer
+        if (onReset && typeof onReset === 'function') this._onReset_ = () => onReset(this) ?? null;
+        else this._onReset_ = () => {return}
+
         if (this._container) {
             
             this._container.addEventListener('pageReset', e => {
+                Promise.resolve(this._onReset_())
+                .then(res => {
+                    this._updateForm_();
+                })
+                .catch(rej => {
+                    return alert('Form reset Error')
+                })
                 // Reset form
-                this._updateForm_();
                 this._saveButton.style.top = '100%';
                 this._saveButton.style.opacity = 0;
                 setTimeout(() => {
@@ -206,7 +214,7 @@ class SessionSettings {
     }) {
         this.Session = Session;
 
-        // Gamemode settings
+        // === Gamemode settings ===
         this.GameMode = new Form ({
             formMap: {
                 eventType: {value: 'Fun', id: 'gamemode-eventtype', preset: 'Fun'},
@@ -224,7 +232,7 @@ class SessionSettings {
             }
         })
 
-        // Attach custom form for branched page to change penalty value
+        // Attach branch Form for Penalties
         this.GameMode._penalties = {};
         this.GameMode.PenaltyForm = new Form({
             formMap: {
@@ -234,21 +242,22 @@ class SessionSettings {
             saveId: 'penalty-save',
             formId: 'penalty-form',
             containerId: 'settings-gamemode-penalty',
-            onSave: (Form) => {
-                return console.log('nut')
-            }
         });
         
+        // Alter opening sequence
         this.GameMode._openPenalty_ = (name='') => {
             let penalty = this.GameMode._penalties[name];
-            let formMap = this.GameMode.PenaltyForm._formMap;
-            if (penalty) {
-                document.getElementById(formMap.name.id).value = penalty.value;
-                console.log('changed')
-            }
-
-            // Change onsave
             let Form = this.GameMode.PenaltyForm
+            if (penalty) {
+                Form._formMap.name.value = penalty.name;
+                Form._formMap.value.value = penalty.value;
+            } else {
+                Form._formMap.name.value = Form._formMap.name.preset;
+                Form._formMap.value.value = Form._formMap.value.preset;
+            }
+            Form._updateForm_();
+
+            // Change onsave method to work with new penalty
             this.GameMode.PenaltyForm._onSave_ =  () => {
                 return new Promise((res, rej) => {
 
@@ -281,16 +290,26 @@ class SessionSettings {
                     target.children[1].innerHTML = newPenalty.value;
                     target.dataset.name = newPenalty.name;
 
+                    // Add penalty to map
                     this.GameMode._penalties[newPenalty.name] = newPenalty;
 
+                    // Reset form map & close page
+                    Form._formMap.name.value = Form._formMap.name.preset;
+                    Form._formMap.value.value = Form._formMap.value.preset;
+                    Form._container._closePage_ ()
 
+                    // Update Game Rules
+                    this.Session.updateGameRules()
 
                     res(Form)
                 })
             }
         }
+        // Attach original open
+        document.getElementById('add-penalty').addEventListener('click', e => {
+            this.GameMode._openPenalty_(null)
+        })
 
-        document.getElementById('add-penalty').addEventListener('click', this.GameMode._openPenalty_(null))
 
     }
 }

@@ -43,9 +43,7 @@ class HrefContainer {
             } else {
                 this.__dirtyHrefs.push(ele)
             }
-            console.log(ele)
             ele.addEventListener('click', e => {
-                console.log(e.target)
                 this.__onHrefClick(ele)
             })
         }

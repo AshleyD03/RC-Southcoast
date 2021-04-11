@@ -2,10 +2,16 @@ import { buttonTimeout } from "./util.js";
 
 class Record {
     // Contains a record node
-    constructor ({msg, classes=[], deleteMethod=null}) {
+    constructor ({
+        msg, 
+        classes=[], 
+        deleteMethod=null,
+        Player
+    }) {
         // Set time or recording
         this._msg = msg;
-        this._time = window.clock._visual.substring(0, 5);
+        this.Player = Player;
+        this._time = this.Player.Clock._visual.substring(0, 5);
         this.__classes = classes;
 
         this._deleteMethod_ = () => {
@@ -108,7 +114,8 @@ class CustomRecorder {
         let record = new Record({
             msg: this.__message,
             classes: this.__classes,
-            deleteMethod: () => this.__removeEvent__(this.__records.length - 1)
+            deleteMethod: () => this.__removeEvent__(this.__records.length - 1),
+            Player: this.Player,
         })
         this.__records.push(record)
         this.__target.insertBefore(record._node, this.__target.children[1]);
