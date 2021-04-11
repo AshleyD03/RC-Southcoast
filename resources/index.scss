@@ -230,10 +230,22 @@ button {
                 background-color: #60606025;
             }
 
+            .dry {
+                color:#5E5E5E;
+            }
+
+            .small {
+                margin-top: 4px;
+                margin-left: 4px;
+                font-size: 0.9rem;
+                margin-right: auto;
+            }
+
             .add {
                 height: 100%;
                 padding-right: 1rem;
                 padding-left: 1rem;
+                margin-left: auto;
                 font-size: 1.6rem;
                 background-color: transparent;
             }

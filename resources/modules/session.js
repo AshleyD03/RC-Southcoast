@@ -6,6 +6,7 @@ import { PlayerSettings, SessionSettings } from './Settings.js';
 class Player {
     constructor (params) {
         this.__isActive = true;
+        this.Name = params.name;
 
         this.Clock = new Clock({
             className: 'time-counter',
@@ -25,7 +26,7 @@ class Player {
         });
     }
 
-    setActive (a) {
+    set isActive(a) {
         if (a === true) {
             this.__isActive = a;
             
@@ -40,7 +41,7 @@ class Player {
         }
     }
 
-    getActive (a) {
+    get isActive() {
         return this.__isActive;
     }
 }
@@ -61,14 +62,14 @@ class Session {
         if (!target) target = Object.values(this.Players)[id];
         if (!target) return false
         
-        Object.values(this.Players).forEach(player => player.setActive(false))
-        target.setActive(true);
+        Object.values(this.Players).forEach(player => player.isActive = false)
+        target.isActive = true;
     }
     
     getActivePlayer () {
         let item = Object.values(this.Players) 
         [Object.values(this.Players)
-        .findIndex(player => player._isActive === true)]
+        .findIndex(player => player.isActive === true)]
         return item
     }
 }

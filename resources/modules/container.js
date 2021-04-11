@@ -36,6 +36,19 @@ class HrefContainer {
                 this.__onHrefClick(trigger)
             })
         )
+
+        this._addHref_ = (ele, clean=true) => {
+            if (clean === true) {
+                this.__hrefs.push(ele)
+            } else {
+                this.__dirtyHrefs.push(ele)
+            }
+            console.log(ele)
+            ele.addEventListener('click', e => {
+                console.log(e.target)
+                this.__onHrefClick(ele)
+            })
+        }
     }
 
     __moveTo__ (id) {

@@ -61,11 +61,17 @@ class Form {
 
             // Call onsave function and resolve by closing
             if (this._onSave_ && typeof this._onSave_ === 'function') {
-                Promise.resolve(this._onSave_()).then(res => {
+                Promise.resolve(this._onSave_())
+                .then(res => {
                     
                     console.log(res)
 
                     this._container.dispatchEvent(new Event('pageReset'));
+                })
+                .catch(rej => {
+                    // Create alert
+                    console.log(rej)
+                    alert('Form not accepted')
                 })
             } else this._container.dispatchEvent(new Event('pageReset'));
 
@@ -233,12 +239,12 @@ class SessionSettings {
             }
         });
         
-        this.GameMode._openPenalty_ = (name) => {
-            console.log('open penalty')
+        this.GameMode._openPenalty_ = (name='') => {
             let penalty = this.GameMode._penalties[name];
-            let formMap = this.GameMode.PenaltyForm.formMap;
+            let formMap = this.GameMode.PenaltyForm._formMap;
             if (penalty) {
                 document.getElementById(formMap.name.id).value = penalty.value;
+                console.log('changed')
             }
 
             // Change onsave
@@ -246,19 +252,45 @@ class SessionSettings {
             this.GameMode.PenaltyForm._onSave_ =  () => {
                 return new Promise((res, rej) => {
 
+                    // Create penalty obj
                     let newPenalty = {
                         name: Form._formMap.name.value,
                         value:  Form._formMap.value.value,
                     }
-                    let name = newPenalty.name;
 
-                    this.GameMode._penalties[name] = newPenalty;
+                    let id = `penalty-${newPenalty.name}`;
+                    let target = document.getElementById(id);
+
+                    // If no target already exists make a new one
+                    if (!target) {
+                        target = document.getElementById('penalty-settings-template').content.cloneNode(true).children[0];
+                        target.id = id;
+                        target.children[2].dataset.moveto = 'settings-gamemode-penalty';
+
+                        target.children[2].addEventListener('click', e => {
+                            let name = target.dataset.name;
+                            this.GameMode._openPenalty_(name);
+                        })
+
+                        window.settingsContainer._addHref_(target.children[2])
+                        this.GameMode._formElement.appendChild(target)
+                    }
+
+                    // Apply styling
+                    target.children[0].innerHTML = newPenalty.name;
+                    target.children[1].innerHTML = newPenalty.value;
+                    target.dataset.name = newPenalty.name;
+
+                    this.GameMode._penalties[newPenalty.name] = newPenalty;
+
+
+
                     res(Form)
                 })
             }
         }
 
-        document.getElementById('add-penalty').addEventListener('click', this.GameMode._openPenalty_)
+        document.getElementById('add-penalty').addEventListener('click', this.GameMode._openPenalty_(null))
 
     }
 }
