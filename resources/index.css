@@ -216,11 +216,11 @@ button {
   background: #f5f5f5;
 }
 
-.slideshow .slide .pill input[type=text]:focus {
+.slideshow .slide .pill input[type=text]:focus, .slideshow .slide .pill input[type=number]:focus {
   text-align: left;
 }
 
-.slideshow .slide .pill input[type=text] {
+.slideshow .slide .pill input[type=text], .slideshow .slide .pill input[type=number] {
   -webkit-transition: color 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: color 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
   margin: 0rem 1rem 0rem 3rem;
