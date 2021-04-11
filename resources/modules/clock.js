@@ -55,7 +55,7 @@ class Clock {
         // Unpause buttons
         unpauseButtons.forEach(but => {
             but.addEventListener('click', e => {
-                if (!this.Player.getActive()) return
+                if (!this.Player.isActive) return
 
                 turnOff(pauseButtons);
                 turnOn(unpauseButtons);
@@ -66,7 +66,7 @@ class Clock {
         // Pause buttons
         pauseButtons.forEach(but => {
             but.addEventListener('click', e => {
-                if (!this.Player.getActive()) return
+                if (!this.Player.isActive) return
 
                 turnOff(unpauseButtons);
                 turnOn(pauseButtons);
