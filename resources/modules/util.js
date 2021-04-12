@@ -19,11 +19,6 @@ const swapClass = (oldClass, newClass) => (array) => {
   })
 }
 
-const applyToClass = (tag, func) => {
-  Array.from(document.getElementsByClassName(tag))
-  .forEach(ele => func(ele))
-}
-
 const buttonTimeout = (obj, dur=1000) => {
   let color = window.getComputedStyle(obj).getPropertyValue('color');
   obj.disabled = true;
