@@ -17,6 +17,13 @@ class PenaltyBoard {
         Array.from(document.getElementsByClassName('point-counter')).forEach(element => {
             element.innerHTML = this.__points;
         });
+        this.Player.node = {
+            score: this.__points,
+        }
+    }
+
+    _initPoints_ () {
+        this._addPoints_(0)
     }
 
     _createController_ (name, value) {
@@ -66,6 +73,7 @@ class PenaltyController {
 
         // Add event
         nodeAdd.addEventListener('click', e => {
+            if (!this.PenaltyBoard.Player.isActive) return
             buttonTimeout(nodeAdd)
 
             // Alter values
@@ -74,6 +82,7 @@ class PenaltyController {
 
         // Remove event
         nodeRemove.addEventListener('click', e => {
+            if (!this.PenaltyBoard.Player.isActive) return
             if (this.__count < 1) return 
             buttonTimeout(nodeRemove);
             this.__removeEvent__();

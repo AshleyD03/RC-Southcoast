@@ -30,4 +30,4 @@ const buttonTimeout = (obj, dur=1000) => {
   }, dur);
 }
 
-export {debounce, swapClass, buttonTimeout, applyToClass};
+export {debounce, swapClass, buttonTimeout};

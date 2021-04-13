@@ -17,12 +17,13 @@ window.settingsContainer = new BookContainer ({
     hrefClass: 'settings-moveto'
 })
 
-window.Session = new Session();
+window.Session = new Session({
+    isMultiplayer: false,
+
+});
 window.Session.addPlayer({name: 'Ashley'});
 window.Session.addPlayer({name: 'Xavier'});
 window.Session.setPlayer('Ashley')
-
-
 
 // Command to move into yuri mode
 window.yuri = () => {
@@ -41,4 +42,4 @@ window.nuke = () => {
     })
 }
 
-mainContainer.__hrefs[3].click()
+mainContainer.__hrefs[1].click()

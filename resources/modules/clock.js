@@ -45,34 +45,6 @@ class Clock {
 
             return new Promise(loop);
         }
-
-        // Get elements and visual class swapper
-        let unpauseButtons = Array.from(document.getElementsByClassName('unpause-clock'));
-        let pauseButtons = Array.from(document.getElementsByClassName('pause-clock'));
-        let turnOff = swapClass('material-icons','material-icons-outlined');
-        let turnOn = swapClass('material-icons-outlined','material-icons');
-
-        // Unpause buttons
-        unpauseButtons.forEach(but => {
-            but.addEventListener('click', e => {
-                if (!this.Player.isActive) return
-
-                turnOff(pauseButtons);
-                turnOn(unpauseButtons);
-                this._unPause_();
-            })
-        })
-
-        // Pause buttons
-        pauseButtons.forEach(but => {
-            but.addEventListener('click', e => {
-                if (!this.Player.isActive) return
-
-                turnOff(unpauseButtons);
-                turnOn(pauseButtons);
-                this._pause_();
-            })
-        })
     }
 
     __setVisual__ (msg=this._visual) {

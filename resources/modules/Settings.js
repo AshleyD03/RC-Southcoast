@@ -1,5 +1,3 @@
-import { applyToClass } from "./util.js";
-
 class Form {
     constructor ({
         formMap,
@@ -7,7 +5,8 @@ class Form {
         formId,
         containerId,
         onSave = () => {},
-        onReset = () => {}
+        onReset = () => {},
+        isThisActive,
     }) {
         this._container = document.getElementById(containerId) ?? null;
         this._saveButton = document.getElementById(saveId) ?? null;
@@ -15,11 +14,17 @@ class Form {
         this.__dataURLs = {};
         this._formMap = formMap;
 
+        if (isThisActive && typeof isThisActive === 'function') this.__isThisActive__ = isThisActive;
+        else this.__isThisActive__ = () => {return true;}
+
         let inputs = [];
         Object.values(formMap).forEach(form => inputs.push(document.getElementById(form.id)));
 
         // Update form method
         this._updateForm_ = () => {    
+            if (!this.__isThisActive__()) return 
+            console.log('updating')
+
             // set form values to properties
             Object.values(this._formMap).forEach(field => {
                 let ele = document.getElementById(field.id);
@@ -28,7 +33,7 @@ class Form {
                     case 'number':
                     case 'text':
                         ele.value = field.value;
-                        ele.style.color = '#363636fd';
+                        ele.style.color = '';
                         break;
                     
                     case 'file':
@@ -36,12 +41,12 @@ class Form {
                         img.src = field.value || field.preset;
                         let text = img.nextElementSibling;
                         text.innerHTML = 'upload...'
-                        text.style.color = '#363636fd';
+                        text.style.color = '';
                         break;
 
                     case 'dropdown':
                         ele.value = field.value ?? field.preset;
-                        ele.style.color = '#363636fd';
+                        ele.style.color = '';
                         break;
                 }
                 ele.dataset.value = field.value ?? field.preset;
@@ -55,6 +60,8 @@ class Form {
         // Submit function
         this._submit_ = e => {
             e.preventDefault()
+
+            if (!this.__isThisActive__()) return
             this._saveButton.disabled = true;
 
             // set properties to form values
@@ -70,6 +77,7 @@ class Form {
                 this._container.dispatchEvent(new Event('pageReset'));
             })
             .catch(rej => {
+                console.log(rej)
                 return alert('Form not accepted')
             })
 
@@ -137,13 +145,19 @@ class Form {
         let input = e.currentTarget;
         let id = input.getAttribute('id');
         let file = e.target.files[0];
-        let dataURL = URL.createObjectURL(file);
+        let dataURL;
+        try {
+            dataURL = URL.createObjectURL(file);
+        } catch {
+            return
+        }
 
         // Clear storage for last URL & Instantuate new Object URL
         if (id in this.__dataURLs) try {
-            this.__dataURLs[id].revokeObjectURL()
+            if (this.__dataURLs[id].length > 2) this.__dataURLs[id].shift().revokeObjectURL()
         } catch {}
-        this.__dataURLs[id] = dataURL;
+        else this.__dataURLs[id] = [];
+        this.__dataURLs[id].push(dataURL);
 
         // Apply url to next sibling & save in put dataset
         input.dataset.value = dataURL;
@@ -179,8 +193,10 @@ class PlayerSettings {
         this.Player = Player;
         this.Personalise = new Form ({
             formMap: {
-                name: {value: '', id: 'personalise-name', preset: ''},
+                name: {value: this.Player.name, id: 'personalise-name', preset: ''},
                 img: {value: '', id: 'personalise-img', preset: 'resources/images/PlayerIconSerious.webp'},
+                tag: {value: this.Player._tag, id: 'personalise-tag', preset: ''},
+                color: {value: 'Red', id: 'personalise-color', preset: ''},
                 tiresize: {value: '', id: 'personalise-tiresize', preset: ''},
                 bodyheight: {value: '', id: 'personalise-bodyheight', preset: ''}
             },
@@ -190,20 +206,52 @@ class PlayerSettings {
             onSave: (Form) => {
                 return new Promise((res, rej) => {
 
-                    console.log(Form)
-                    // Apply icon
-                    let iconSrc = Form._formMap.img.value;
-                    let apply = ele => ele.src = iconSrc;
-                    applyToClass('icon-counter', apply);
+                    // Change icon visuals
+                    let iconSrc = Form._formMap.img.value || Form._formMap.img.preset;
+                    Form._formMap.img.preset = iconSrc;
+                    Array.from(document.getElementsByClassName('icon-counter'))
+                    .forEach(ele => {
+                        ele.src = iconSrc;
+                    })
+
+                    // Apply color change
+                    let color = Form._formMap.color.value || Form._formMap.color.preset;
+                    let fontColor;
+                        switch (color){
+                            case 'Blue':
+                            case 'Red':
+                            case 'Green':
+                                fontColor = 'White';
+                                break;
+                            case 'Yellow':
+                                fontColor = 'Black';
+                                break;
+                    }
+                    Array.from(document.getElementsByClassName('color-counter'))
+                    .forEach(ele => {
+                        ele.style.backgroundColor = color;
+                        Array.from(ele.querySelectorAll('*'))
+                        .forEach(child => child.style.color = fontColor)
+                    })
+                    // Apply changes player 
+                    this.Player.node = {
+                        iconUrl: iconSrc,
+                        name: Form._formMap.name.value
+                    }
+                    
 
                     res(Form)
                 });
+            },
+            isThisActive: () => {
+                return this.Player.isActive
             }
         })
     }
 
     _SetActive_ () {
         // List of all onsave functions
+        this.Personalise._updateForm_();
         this.Personalise._onSave_();
     }
 }
@@ -282,7 +330,7 @@ class SessionSettings {
                         })
 
                         window.settingsContainer._addHref_(target.children[2])
-                        this.GameMode._formElement.appendChild(target)
+                        document.getElementById('penalty-settings-target').appendChild(target)
                     }
 
                     // Apply styling

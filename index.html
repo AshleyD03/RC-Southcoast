@@ -26,7 +26,7 @@
                 <!-- Score board container -->
                 <div class="panel-container">
                     <!-- Top scroll area showing points and clock -->
-                    <div class="top-bar-tall" id="scoreBoard-top">
+                    <div class="top-bar-tall color-counter" id="scoreBoard-top">
                         <div class="slideshow" id="scoreBoard-panel">
                             <span class="slide" id="scoreBoard-points">
                                 <center>
@@ -106,7 +106,7 @@
                 <!-- Penalties container -->
                 <div class="panel-container">
                     <!-- Top bar with -->
-                    <div class="top-bar-small flex-center" id="penalties-top">
+                    <div class="top-bar-small flex-center color-counter" id="penalties-top">
                         <div class="circle-image-small flow-left drop-shadow">
                             <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
@@ -180,12 +180,7 @@
                             sports_score
                         </button>
                         <button>
-                            <div class="material-icons-outlined pause-clock">
-                                pause_circle
-                            </div>
-                        </button>
-                        <button>
-                            <div class="material-icons-outlined unpause-clock">
+                            <div class="material-icons-outlined clock-controlls">
                                 play_circle
                             </div>
                         </button>
@@ -194,12 +189,12 @@
 
             </span>
 
-            <span class="panel" id="playerBoard">
+            <span class="panel multiplayer-only" id="playerBoard">
                 
                 <!-- Penalties container -->
                 <div class="panel-container">
                     <!-- Top bar with -->
-                    <div class="top-bar-small flex-center">
+                    <div class="top-bar-small flex-center color-counter">
                         <div class="top-title">
                             Score Board
                         </div>
@@ -208,23 +203,27 @@
                     <!-- Bottom content -->
                     <div class="slideshow">
                         <div class="slide">
+                            <div id="playerboard-player-target">
 
-                            <label class="player">
-                                <div class="score">
-                                    31
-                                </div>
-                                <div class="name">
-                                    <span>
-                                        Name
-                                    </span>
-                                    <span>
-                                        @username
-                                    </span>
-                                </div>
-                                <div class="icon">
-                                    <img src='resources/images/PlayerIconSerious.webp'>
-                                </div>
-                            </label>
+                            </div>
+                            <template id="playerboard-player-template">
+                                <label class="player">
+                                    <div class="icon">
+                                        <img src='resources/images/PlayerIconSerious.webp'>
+                                    </div>
+                                    <div class="name">
+                                        <span>
+                                            Name
+                                        </span>
+                                        <span>
+                                            @username
+                                        </span>
+                                    </div>
+                                    <div class="score">
+                                        31
+                                    </div>
+                                </label>
+                            </template>
 
                             <label class="add">
                                 Add Player
@@ -241,7 +240,7 @@
                 <!-- Penalties container -->
                 <div class="panel-container">
                     <!-- Top bar with -->
-                    <div class="top-bar-small flex-center" id="settings-top">
+                    <div class="top-bar-small flex-center color-counter" id="settings-top">
                         <div class="circle-image-small flow-left drop-shadow">
                             <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
@@ -263,10 +262,10 @@
 
                             <div class="content">
                                 <div class="subheader">
-                                    Base Controlls
+                                    Player 
                                 </div>
 
-                                <button class="pill settings-moveto" data-moveto="settings-personalise">
+                                <button class="pill pillend settings-moveto" data-moveto="settings-personalise">
                                     <span class="material-icons-outlined">
                                         account_circle
                                     </span>
@@ -274,6 +273,10 @@
                                         Personalise
                                     </span>
                                 </button>
+
+                                <div class="subheader">
+                                    Game
+                                </div>
 
                                 <button class="pill pillend settings-moveto" data-moveto="settings-gamemode">
                                     <span class="material-icons-outlined">
@@ -311,6 +314,20 @@
                                 <label class="pill">
                                     <span>Name</span>
                                     <input type="text" id="personalise-name" placeholder="...">
+                                </label>
+                                <label class="pill" for="gamemode-eventtype">
+                                    <span>Color</span>
+                                    <select type="dropdown" id="personalise-color" dir="rtl">
+                                        <option value="Red" selected>Red</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Yellow">Yellow</option>
+                                        <option value="Pink">Pink</option>
+                                    </select>
+                                </label>
+                                <label class="pill readonly">
+                                    <span>Tag</span>
+                                    <input type="text" id="personalise-tag" placeholder="..." readonly>
                                 </label>
                                 <label class="pill pillend">
                                     <input type="file" id="personalise-img">
@@ -377,7 +394,7 @@
                                 <div class="subheader">
                                     Penalties
                                 </div>
-                                <label class="pill" for="add-penalty">
+                                <label class="pill pillend" for="add-penalty">
                                     <span for="gamemode-addpenalty">
                                         Add a Penalty
                                     </span>
@@ -385,6 +402,10 @@
                                         add
                                     </button>
                                 </label>
+
+                                <div class="container" id="penalty-settings-target">
+
+                                </div>
                                 <template id="penalty-settings-template">
                                     <label class="pill">
                                         <span class="dry">
@@ -445,7 +466,7 @@
         </div>
 
         <!-- Bottom bar with controller icons -->
-        <div id="bottomBar">
+        <div id="bottomBar" class="color-counter">
             <button class="record-panel-button" data-moveto="scoreBoard">
                 <span class="material-icons-outlined">
                     view_list
@@ -456,7 +477,7 @@
                     flag
                 </span>
             </button>
-            <button class="record-panel-button" data-moveto="playerBoard">
+            <button class="record-panel-button multiplayer-only" data-moveto="playerBoard">
                 <span class="material-icons-outlined">
                     assignment
                 </span>

@@ -55,6 +55,7 @@ class Record {
 
         // Click to undo
         undo.addEventListener('click', e => {
+            if (!this.Player.isActive) return
             this._deleteMethod_();
             this._alertNode.style.background = '#D0E495';
             this._alertNode.style.opacity = 1;
@@ -101,6 +102,7 @@ class CustomRecorder {
 
         this.__activators.forEach(button => {
             button.addEventListener('click', e => {    
+                if (!this.Player.isActive) return
                 buttonTimeout(button)
                 this.__createEvent__();
             })
@@ -143,6 +145,10 @@ function flagRecorder ({
                 .forEach(ele => {
                     ele.innerHTML = `Flag ${x.__flagVal}`
                 })
+            }
+
+            x._updateCounter_ = () => {
+                x.__message = `Reached Flag ${x.__flagVal}`;
             }
         }, 
         trigger: (x) => {
