@@ -67,6 +67,8 @@ button {
       -ms-flex-pack: start;
           justify-content: flex-start;
   background-color: #c4c4c45e;
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
 }
 
 .slideshow .slide .player .icon {
@@ -130,7 +132,15 @@ button {
 }
 
 .slideshow .slide .player.selected {
-  background: #ffc6c6;
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+  outline: auto;
+  outline-color: #00000049;
+}
+
+.slideshow .slide .player.selected .name {
+  -webkit-filter: hue-rotate(-20deg);
+          filter: hue-rotate(-20deg);
 }
 
 .slideshow .slide .add {
@@ -245,6 +255,12 @@ button {
   text-overflow: ellipsis;
 }
 
+.slideshow .slide .pill input[type=checkbox] {
+  height: 1.4rem;
+  width: 1.4rem;
+  margin: 0rem 1rem 0rem auto;
+}
+
 .slideshow .slide .pill input[type=file] {
   display: none;
 }
@@ -255,10 +271,10 @@ button {
   background-color: transparent;
   font-size: 1.4rem;
   text-align: right;
-  max-width: 100%;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 80%;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -370,8 +386,8 @@ button {
   background: #00ff1a54;
   -webkit-backdrop-filter: blur(7px);
           backdrop-filter: blur(7px);
-  -webkit-transition: top 1500ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
-  transition: top 1500ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  -webkit-transition: top 500ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: top 500ms cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .slideshow .slide .pill.save .material-icons {

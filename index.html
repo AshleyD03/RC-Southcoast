@@ -315,7 +315,7 @@
                                     <span>Name</span>
                                     <input type="text" id="personalise-name" placeholder="...">
                                 </label>
-                                <label class="pill" for="gamemode-eventtype">
+                                <label class="pill" for="personalise-color">
                                     <span>Color</span>
                                     <select type="dropdown" id="personalise-color" dir="rtl">
                                         <option value="Red" selected>Red</option>
@@ -323,6 +323,7 @@
                                         <option value="Blue">Blue</option>
                                         <option value="Yellow">Yellow</option>
                                         <option value="Pink">Pink</option>
+                                        <option value="Black">Black</option>
                                     </select>
                                 </label>
                                 <label class="pill readonly">
@@ -381,13 +382,17 @@
                                         <option value="Competition">Competition</option>
                                     </select>
                                 </label>
-                                <label class="pill pillend" for="gamemode-ruleset">
+                                <label class="pill" for="gamemode-ruleset">
                                     <span>Rule Set</span>
                                     <select type="dropdown" id="gamemode-ruleset" dir="rtl">
                                         <option value="Street" selected>Street</option>
                                         <option value="Trail">Trail</option>
                                         <option value="Modified">Modified</option>
                                     </select>
+                                </label>
+                                <label class="pill pillend">
+                                    <span>Max Players</span>
+                                    <input required type="number" id="gamemode-playercapacity" placeholder="1" min="1" max="100" step="1">
                                 </label>
 
                                 <!-- Penalty list to add and take away from -->
@@ -440,7 +445,7 @@
 
                             <form class="content" id="penalty-form">
                                 <div class="subheader">
-                                    Specifics
+                                    Base
                                 </div>
                                 <label class="pill">
                                     <span>Name tag</span>
@@ -448,12 +453,19 @@
                                 </label>
                                 <label class="pill pillend">
                                     <span>Points</span>
-                                    <input required type="number" id="penalty-value" placeholder="+/- ?">
+                                    <input required type="number" id="penalty-value" placeholder="+/- ?" min="-100" max="100" step="1">
                                 </label>
 
-                                <div class="subheader">
-                                    Delete
+                                <div class="container" id="penalty-delete-container">
+                                    <div class="subheader">
+                                        Settings
+                                    </div>
+                                    <label class="pill">
+                                        <span>Delete this</span>
+                                        <input type="checkbox" id="penalty-delete" placeholder="new name">
+                                    </label>
                                 </div>
+                                
                             </form>
                         </div>
 

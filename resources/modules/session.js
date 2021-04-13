@@ -40,10 +40,11 @@ class Player {
             tag: this._tag,
             iconUrl: this.iconUrl ?? 'resources/images/PlayerIconSerious.webp',
         }
-        this.node.addEventListener('click', e => {
+        this.node.tag.style.color = this.Settings.Personalise._formMap.color.value;
+        this.node.body.addEventListener('click', e => {
             this.Session.setPlayer(this.name)
         })
-        document.getElementById('playerboard-player-target').appendChild(this.node)
+        document.getElementById('playerboard-player-target').appendChild(this.node.body)
     }
 
     updateGameRules () {
@@ -112,7 +113,14 @@ class Player {
     } 
 
     get node () {
-        return this.__node
+        let children = this.__node.children;
+        return {
+            body: this.__node,
+            icon: children[0].children[0],
+            name: children[1].children[0],
+            tag: children[1].children[1],
+            score: children[2],
+        }
     }
 }
 
@@ -121,14 +129,14 @@ class Session {
         isMultiplayer=true,
 
     }) {
+        // Key properties 
+        this.__isMultiplayer;
+        this.isMultiplayer = isMultiplayer;
+
         // Class Carriers
         this.Players = [];
         this.Settings = new SessionSettings({Session: this});
         this.ActivePlayer;
-
-        // Key properties 
-        this.__isMultiplayer;
-        this.isMultiplayer = isMultiplayer;
 
         // Link clock controlls
         this.__clockButtons = Array.from(document.getElementsByClassName('clock-controlls'));
@@ -173,10 +181,21 @@ class Session {
         return true
     }
 
+    get isMultiplayer () {
+        return this.__isMultiplayer;
+    }
+
     addPlayer (params) {
-        if (!this._isMultiplayer && this.Players.length > 0) return false
+        if (this._isMultiplayer === false && this.Players.length > 0) return false
+        if (this.Players.length >= this.Settings.GameMode._formMap.playerCapacity.value) return false
+        
+        console.log(params.name)
         let newPlayer = new Player({...params, Session: this});
         this.Players.push(newPlayer);
+
+        // increase minimum player capacity in settings
+        let miniEle = document.getElementById(this.Settings.GameMode._formMap.playerCapacity.id);
+        miniEle.min = this.Players.length;
     }
 
     setPlayer (id) {
@@ -200,7 +219,7 @@ class Session {
         })
 
         // Set current player active to add new style changes
-        this.setPlayer(this.ActivePlayer)
+        this.setPlayer(this.ActivePlayer.name)
     }
 }
 

@@ -18,7 +18,7 @@ window.settingsContainer = new BookContainer ({
 })
 
 window.Session = new Session({
-    isMultiplayer: false,
+    isMultiplayer: true,
 
 });
 window.Session.addPlayer({name: 'Ashley'});

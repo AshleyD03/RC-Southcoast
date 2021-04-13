@@ -44,6 +44,10 @@ class Form {
                         text.style.color = '';
                         break;
 
+                    case 'checkbox':
+                        ele.checked = false; 
+                        break;
+
                     case 'dropdown':
                         ele.value = field.value ?? field.preset;
                         ele.style.color = '';
@@ -89,6 +93,7 @@ class Form {
         if (inputs && Array.isArray(inputs)) inputs.forEach(input => { 
             let type = input.getAttribute('type');
             input.addEventListener('change', e => {
+                console.log('clunk')
                 if (!type) return 
 
                 // Type specific change
@@ -103,6 +108,9 @@ class Form {
                         break;
                     case 'dropdown':
                         this.__InputDropdownEvent__(e);
+                        break;
+                    case 'checkbox':
+                        this.__InputCheckboxEvent__(e);
                         break;
                 }
 
@@ -130,7 +138,7 @@ class Form {
                 this._saveButton.style.opacity = 0;
                 setTimeout(() => {
                     this._saveButton.style.display = 'none';
-                }, 1500)
+                }, 500)
             })
 
         }
@@ -175,6 +183,11 @@ class Form {
         input.style.color = 'green';
     }
 
+    __InputCheckboxEvent__ (e) {
+        let input = e.currentTarget;
+        input.dataset.value = input.checked;
+    }
+
     __InputNeutralEvent__  () {
         this._saveButton.style.display = 'flex';
         setTimeout(() => {
@@ -190,6 +203,7 @@ class PlayerSettings {
     constructor ({
         Player,
     }) {
+        
         this.Player = Player;
         this.Personalise = new Form ({
             formMap: {
@@ -220,6 +234,7 @@ class PlayerSettings {
                         switch (color){
                             case 'Blue':
                             case 'Red':
+                            case 'Black':
                             case 'Green':
                                 fontColor = 'White';
                                 break;
@@ -238,6 +253,7 @@ class PlayerSettings {
                         iconUrl: iconSrc,
                         name: Form._formMap.name.value
                     }
+                    this.Player.node.tag.style.color = Form._formMap.color.value;
                     
 
                     res(Form)
@@ -261,12 +277,15 @@ class SessionSettings {
         Session,
     }) {
         this.Session = Session;
-
+        let playerCapacity = 10;
+        if (this.Session.isMultiplayer === false) playerCapacity = 1;
+        console.log(playerCapacity)
         // === Gamemode settings ===
         this.GameMode = new Form ({
             formMap: {
                 eventType: {value: 'Fun', id: 'gamemode-eventtype', preset: 'Fun'},
-                img: {value: 'Street', id: 'gamemode-ruleset', preset: 'Street'}
+                img: {value: 'Street', id: 'gamemode-ruleset', preset: 'Street'},
+                playerCapacity: {value: playerCapacity, id: 'gamemode-playercapacity', preset: playerCapacity}
             },
             saveId: 'gamemode-save',
             formId: 'gamemode-form',
@@ -279,13 +298,16 @@ class SessionSettings {
                 })
             }
         })
+        this.GameMode._updateForm_();
+
 
         // Attach branch Form for Penalties
         this.GameMode._penalties = {};
         this.GameMode.PenaltyForm = new Form({
             formMap: {
                 name: {value: '', id: 'penalty-name', preset: ''},
-                value: {value: '', id: 'penalty-value', preset: ''}
+                value: {value: '', id: 'penalty-value', preset: ''},
+                delete: {value: '', id: 'penalty-delete', preset: false}
             },
             saveId: 'penalty-save',
             formId: 'penalty-form',
@@ -293,13 +315,16 @@ class SessionSettings {
         });
         
         // Alter opening sequence
-        this.GameMode._openPenalty_ = (name='') => {
-            let penalty = this.GameMode._penalties[name];
+        this.GameMode._openPenalty_ = (oldName) => {
             let Form = this.GameMode.PenaltyForm
+            // Get values from old, if used
+            let penalty = this.GameMode._penalties[oldName || ''];
             if (penalty) {
+                document.getElementById('penalty-delete-container').style.display = 'block';
                 Form._formMap.name.value = penalty.name;
                 Form._formMap.value.value = penalty.value;
             } else {
+                document.getElementById('penalty-delete-container').style.display = 'none';
                 Form._formMap.name.value = Form._formMap.name.preset;
                 Form._formMap.value.value = Form._formMap.value.preset;
             }
@@ -309,10 +334,33 @@ class SessionSettings {
             this.GameMode.PenaltyForm._onSave_ =  () => {
                 return new Promise((res, rej) => {
 
+                    // If opened from a created node, delete
+                    if (oldName) {
+                        // Delete old version
+                        document.getElementById(`penalty-${oldName}`).remove();
+                        delete this.GameMode._penalties[oldName]
+
+                        // Leave without creating new version and apply changes
+                        if (Form._formMap.delete.value === 'true') {
+                            Form._container._closePage_ ();
+                            this.Session.updateGameRules();
+                            return res(Form)
+                        } 
+                    }
+
+                    // Prevent name duplication
+                    let newName = Form._formMap.name.value;
+                    let i = 1;
+                    while (this.GameMode._penalties[newName]) {
+                        newName = `${Form._formMap.name.value}(${i})`;
+                        i++; 
+                    }
+                    let newValue = Form._formMap.value.value;
+
                     // Create penalty obj
                     let newPenalty = {
-                        name: Form._formMap.name.value,
-                        value:  Form._formMap.value.value,
+                        name: newName,
+                        value:  newValue,
                     }
 
                     let id = `penalty-${newPenalty.name}`;
@@ -326,28 +374,32 @@ class SessionSettings {
 
                         target.children[2].addEventListener('click', e => {
                             let name = target.dataset.name;
-                            this.GameMode._openPenalty_(name);
+                            this.GameMode._openPenalty_(name, id);
                         })
 
                         window.settingsContainer._addHref_(target.children[2])
-                        document.getElementById('penalty-settings-target').appendChild(target)
+                        document.getElementById('penalty-settings-target').appendChild(target)      
                     }
 
+                    // Make new value have +/- styling
+                    if (newValue > 0) newValue = `+${newValue}`;
+
                     // Apply styling
-                    target.children[0].innerHTML = newPenalty.name;
-                    target.children[1].innerHTML = newPenalty.value;
-                    target.dataset.name = newPenalty.name;
+                    target.children[0].innerHTML = newName;
+                    target.children[1].innerHTML = newValue;
+                    target.dataset.name = newName;
 
                     // Add penalty to map
-                    this.GameMode._penalties[newPenalty.name] = newPenalty;
+                    this.GameMode._penalties[newName] = newPenalty;
 
                     // Reset form map & close page
                     Form._formMap.name.value = Form._formMap.name.preset;
                     Form._formMap.value.value = Form._formMap.value.preset;
-                    Form._container._closePage_ ()
+                    Form._container._closePage_ ();
 
                     // Update Game Rules
-                    this.Session.updateGameRules()
+                    console.log('updating game rules')
+                    this.Session.updateGameRules();
 
                     res(Form)
                 })
@@ -357,7 +409,6 @@ class SessionSettings {
         document.getElementById('add-penalty').addEventListener('click', e => {
             this.GameMode._openPenalty_(null)
         })
-
 
     }
 }
