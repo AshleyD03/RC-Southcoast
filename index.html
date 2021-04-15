@@ -19,8 +19,10 @@
 </head>
 <body>
     <content id="record-container">
-
         <div id="record-panel">
+
+
+
             <span class="panel" id="scoreBoard">
 
                 <!-- Score board container -->
@@ -100,6 +102,22 @@
                 </div>
 
             </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             <span class="panel" id="penalties">
 
@@ -189,6 +207,22 @@
 
             </span>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <span class="panel multiplayer-only" id="playerBoard">
                 
                 <!-- Penalties container -->
@@ -201,8 +235,8 @@
                     </div>
 
                     <!-- Bottom content -->
-                    <div class="slideshow">
-                        <div class="slide">
+                    <div class="slideshow" id="playerboard-bottom">
+                        <div class="slide" id="pb-home">
                             <div id="playerboard-player-target">
 
                             </div>
@@ -225,15 +259,32 @@
                                 </label>
                             </template>
 
-                            <label class="add">
+                            <label class="add pb-turnTo" data-moveto="pb-add">
                                 Add Player
                             </label>
                         </div>
+
+                        <div class="slide" id="pb-add">
+                            <button class="pb-turnTo" data-moveto="pb-home">
+                                <span class="material-icons">
+                                    navigate_before
+                                </span>
+                            </button>
+                        </div>
                     </div>
-
                 </div>
-
             </span>
+
+
+
+
+
+
+
+
+
+
+
             
             <span class="panel" id="settings">
 
@@ -468,13 +519,27 @@
                                 
                             </form>
                         </div>
-
                     </div>
-
-
                 </div>
 
             </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
 
         <!-- Bottom bar with controller icons -->

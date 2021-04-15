@@ -62,12 +62,14 @@ button {
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
 
+        
         .player:active {
             filter: brightness(0.8);
         }
         .player {
+            margin-top: 0.5rem;
             width: calc(100% - 1rem);
-            margin: 0.5rem;
+            padding: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -83,7 +85,7 @@ button {
             }
 
             .name {
-                margin: 0.5rem;
+                padding: 0.5rem;
                 width: fit-content;
                 display: flex;
                 align-items: flex-start;
@@ -97,7 +99,7 @@ button {
                 :nth-child(1) {
                     padding-top: 4px;
                     font-size: 1.5rem;
-                    color: #00000070;
+                    color: #000000;
                 }
                 :nth-child(2) {
                     font-size: 0.9rem;
@@ -377,6 +379,10 @@ button {
 #penalties-bottom {
     height: calc(100% - 8.5rem);
     overflow: hidden;
+}
+
+#playerboard-bottom {
+    height: calc(100% - 5rem);
 }
 
 #settings-bottom {
@@ -795,5 +801,4 @@ $sectionHeight: calc(100% - 4rem);
             border-right: 0px;
         }
     }    
-
 }

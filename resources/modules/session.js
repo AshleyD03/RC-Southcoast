@@ -41,9 +41,18 @@ class Player {
             iconUrl: this.iconUrl ?? 'resources/images/PlayerIconSerious.webp',
         }
         this.node.tag.style.color = this.Settings.Personalise._formMap.color.value;
+
+        // Event listenerts
         this.node.body.addEventListener('click', e => {
+            // Set this player
             this.Session.setPlayer(this.name)
         })
+
+        this.__node.children[0].addEventListener('click', e => {
+            window.settingsContainer.__turnToId__('settings-personalise')
+        })
+
+
         document.getElementById('playerboard-player-target').appendChild(this.node.body)
     }
 

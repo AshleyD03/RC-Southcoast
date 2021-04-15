@@ -71,7 +71,7 @@ class HrefContainer {
 
         // Append timout and move if target valid
         this.__isMovingTimeouts.push(timeout)
-        if (target) target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+        if (target) return target.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
     }
 }
 
@@ -149,6 +149,7 @@ class BookContainer extends HrefContainer {
         this.__subPages.forEach(page => page.style.display = 'none');
 
         this.__turnToId__ = (id) => {
+            console.log(id)
             // Get target to moveto
             let target;
             if (id === 'pageback') {
@@ -160,6 +161,7 @@ class BookContainer extends HrefContainer {
 
             // Check if needs to be added to array & displayed
             let index = this.__visiblePages.indexOf(target);
+            console.log('target')
             if (index === -1) {
                 this.__visiblePages.push(target);
                 target.style.display = 'inline-block'; 
@@ -181,8 +183,11 @@ class BookContainer extends HrefContainer {
             let width = this.__homePage.clientWidth;
 
             // Remove right element
-            if (pos % width === 0 && pos/width !== this.__visiblePages.length - 1) {
+            if (pos % width === 0 && pos/width !== this.__visiblePages.length - 1 && this.__visiblePages.length !== 1) {
+
+
                 let removed = this.__visiblePages.pop();
+                console.log(removed)
                 removed.style.display = 'none';
                 removed.dispatchEvent(new Event('pageReset'));
             }

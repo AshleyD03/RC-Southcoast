@@ -55,8 +55,9 @@ button {
 }
 
 .slideshow .slide .player {
+  margin-top: 0.5rem;
   width: calc(100% - 1rem);
-  margin: 0.5rem;
+  padding: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -90,7 +91,7 @@ button {
 }
 
 .slideshow .slide .player .name {
-  margin: 0.5rem;
+  padding: 0.5rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -117,7 +118,7 @@ button {
 .slideshow .slide .player .name :nth-child(1) {
   padding-top: 4px;
   font-size: 1.5rem;
-  color: #00000070;
+  color: #000000;
 }
 
 .slideshow .slide .player .name :nth-child(2) {
@@ -457,6 +458,10 @@ button {
 #penalties-bottom {
   height: calc(100% - 8.5rem);
   overflow: hidden;
+}
+
+#playerboard-bottom {
+  height: calc(100% - 5rem);
 }
 
 #settings-bottom {

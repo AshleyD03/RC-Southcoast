@@ -1,6 +1,7 @@
 import { SwipeContainer, BookContainer } from './modules/container.js'
 import { Session } from './modules/Session.js'
 
+
 // Swipe containers 
 window.mainContainer = new SwipeContainer ({
     panelID: 'record-panel',
@@ -11,19 +12,27 @@ window.scoreBoardTop = new SwipeContainer ({
     hrefClass: 'scoreBoard-href'
 })
 
-// Book container
+
+// Book containers
 window.settingsContainer = new BookContainer ({
     panelID: 'settings-bottom',
     hrefClass: 'settings-moveto'
 })
+window.playerBoardContainer = new BookContainer ({
+    panelID: 'playerboard-bottom',
+    hrefClass: 'pb-turnTo'
+})
 
+
+// Session 
 window.Session = new Session({
     isMultiplayer: true,
-
 });
 window.Session.addPlayer({name: 'Ashley'});
 window.Session.addPlayer({name: 'Xavier'});
 window.Session.setPlayer('Ashley')
+
+
 
 // Command to move into yuri mode
 window.yuri = () => {
@@ -34,7 +43,6 @@ window.yuri = () => {
         }
     })
 }
-
 // Oh god...
 window.nuke = () => {
     Array.from(document.querySelectorAll('body *')).forEach(ele => {
@@ -42,4 +50,5 @@ window.nuke = () => {
     })
 }
 
+// Testing scripts
 mainContainer.__hrefs[1].click()
