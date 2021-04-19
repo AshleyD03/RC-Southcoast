@@ -62,7 +62,6 @@ window.nuke = () => {
 }
 
 // Preset commands (for testing)
-mainContainer.__hrefs[2].click()
-penaltyBoard._createController_('Penalty 1',12)
-penaltyBoard._createController_('Penalty 2',3)
-penaltyBoard._createController_('Penalty 3', 911)
+penaltyBoard._createController_('Penalty 1',1)
+penaltyBoard._createController_('Penalty 2',2)
+penaltyBoard._createController_('Penalty 3',3)
