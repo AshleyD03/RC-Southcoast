@@ -53,6 +53,8 @@ class Player {
         this.PenaltyBoard._removeAllControllers_()
         // Remove this from session
         this.Session.removePlayer(this.name)
+        this.Session.setPlayer(0)
+        this.__node.remove();
     }
 
     set isActive(a) {
@@ -200,6 +202,7 @@ class Session {
         // increase minimum player capacity in settings
         let miniEle = document.getElementById(this.Settings.GameMode._formMap.playerCapacity.id);
         miniEle.min = this.Players.length;
+        return newPlayer
     }
 
     removePlayer (id) {
@@ -210,6 +213,7 @@ class Session {
         if (!target) return false
 
         this.Players.splice(this.Players.indexOf(target), 1)
+        return target
     }
 
     setPlayer (id) {

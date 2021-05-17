@@ -265,11 +265,66 @@
                         </div>
 
                         <div class="slide" id="pb-add">
-                            <button class="pb-turnTo" data-moveto="pb-home">
-                                <span class="material-icons">
+
+                            <!-- Personalise Page -->
+                            <div class="headline">
+                                <button class="material-icons pb-turnTo" data-moveto="pb-home">
                                     navigate_before
+                                </button>
+                                <span>
+                                    Personalise
+                                </span>
+                            </div>
+
+                            <button class="pill save" form="create-player-form" type="submit" id="create-player-save">
+                                <span>
+                                    Save changes ?
                                 </span>
                             </button>
+
+                            <form class="content" id="create-player-form">
+                                <!-- Personal Aspects-->
+                                <div class="subheader">
+                                    Player
+                                </div>
+                                <label class="pill">
+                                    <span>Name</span>
+                                    <input type="text" id="create-player-name" placeholder="..." required>
+                                </label>
+                                <label class="pill" for="create-player-color">
+                                    <span>Color</span>
+                                    <select type="dropdown" id="create-player-color" dir="rtl">
+                                        <option value="Red" selected>Red</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Yellow">Yellow</option>
+                                        <option value="Pink">Pink</option>
+                                        <option value="Black">Black</option>
+                                    </select>
+                                </label>
+                                <label class="pill readonly">
+                                    <span>Tag</span>
+                                    <input type="text" id="create-player-tag" placeholder="@Guest" readonly>
+                                </label>
+                                <label class="pill pillend">
+                                    <input type="file" id="create-player-img">
+                                    <img src="resources/images/PlayerIconSerious.webp" class="icon-counter">
+                                    <span> upload... </span>
+                                </label>
+
+                                <!-- Car specs -->
+                                <div class="subheader">
+                                    Specs
+                                </div>
+                                <label class="pill">
+                                    <span>Tire Size</span>
+                                    <input type="text" id="create-player-tiresize" placeholder="..." required>
+                                </label>
+                                <label class="pill pillend">
+                                    <span>Body Height</span>
+                                    <input type="text" id="create-player-bodyheight" placeholder="..." required>
+                                </label>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -433,7 +488,7 @@
                                 <div class="subheader">
                                     Check Box
                                 </div>
-                                <label class="pill">
+                                <label class="pill pillend">
                                     <span>Are you sure?</span>
                                     <input type="checkbox" id="deleteplayer-check" placeholder="new name">
                                 </label>

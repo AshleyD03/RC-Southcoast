@@ -22,38 +22,42 @@ class Form {
 
         // Update form method
         this._updateForm_ = () => {    
-            if (!this.__isThisActive__()) return 
-            console.log('updating')
+            if (!this.__isThisActive__()) return
 
             // set form values to properties
             Object.values(this._formMap).forEach(field => {
                 let ele = document.getElementById(field.id);
                 let type = ele.getAttribute('type');
-                switch (type) {
-                    case 'number':
-                    case 'text':
-                        ele.value = field.value;
-                        ele.style.color = '';
-                        break;
-                    
-                    case 'file':
-                        let img = ele.nextElementSibling;
-                        img.src = field.value || field.preset;
-                        let text = img.nextElementSibling;
-                        text.innerHTML = 'upload...'
-                        text.style.color = '';
-                        break;
-
-                    case 'checkbox':
-                        ele.checked = false; 
-                        break;
-
-                    case 'dropdown':
-                        ele.value = field.value ?? field.preset;
-                        ele.style.color = '';
-                        break;
+                console.log(type)
+                try {
+                    switch (type) {
+                        case 'number':
+                        case 'text':
+                            ele.value = field.value;
+                            ele.style.color = '';
+                            break;
+                        
+                        case 'file':
+                            let img = ele.nextElementSibling;
+                            img.src = field.value || field.preset;
+                            let text = img.nextElementSibling;
+                            text.innerHTML = 'upload...'
+                            text.style.color = '';
+                            break;
+    
+                        case 'checkbox':
+                            ele.checked = false; 
+                            break;
+    
+                        case 'dropdown':
+                            ele.value = field.value ?? field.preset;
+                            ele.style.color = '';
+                            break;
+                    }
+                    ele.dataset.value = field.value ?? field.preset;
+                } catch {
+                    console.log('error')
                 }
-                ele.dataset.value = field.value ?? field.preset;
             });
         }
 
@@ -86,7 +90,10 @@ class Form {
             })
 
         }
-        if (this._formElement) this._formElement.addEventListener('submit', this._submit_)
+        if (this._formElement) this._formElement.addEventListener('submit', e => {
+            console.log('save')
+            this._submit_(e)
+        })
 
         // === EVENT LISTENERS ===
         // Attatch listeners to each input
@@ -131,7 +138,7 @@ class Form {
                     this._updateForm_();
                 })
                 .catch(rej => {
-                    return alert('Form reset Error')
+                    return 
                 })
                 // Reset form
                 this._saveButton.style.top = '100%';
@@ -203,7 +210,6 @@ class PlayerSettings {
     constructor ({
         Player,
     }) {
-        
         this.Player = Player || {};
         this.Personalise = new Form ({
             formMap: {
@@ -231,16 +237,16 @@ class PlayerSettings {
                     // Apply color change
                     let color = Form._formMap.color.value || Form._formMap.color.preset;
                     let fontColor;
-                        switch (color){
-                            case 'Blue':
-                            case 'Red':
-                            case 'Black':
-                            case 'Green':
-                                fontColor = 'White';
-                                break;
-                            case 'Yellow':
-                                fontColor = 'Black';
-                                break;
+                    switch (color) {
+                        case 'Blue':
+                        case 'Red':
+                        case 'Black':
+                        case 'Green':
+                            fontColor = 'White';
+                            break;
+                        case 'Yellow':
+                            fontColor = 'Black';
+                            break;
                     }
                     Array.from(document.getElementsByClassName('color-counter'))
                     .forEach(ele => {
@@ -276,6 +282,7 @@ class PlayerSettings {
                     if (confirm === 'true') {
                         console.log(`delete confirm : ${confirm}`)
                         this.Player._delete_()
+                        Form._container._closePage_ ();
                     }
 
                     res(Form)
@@ -384,9 +391,9 @@ class SessionSettings {
                         name: newName,
                         value:  newValue,
                     }
-
+ 
                     let id = `penalty-${newPenalty.name}`;
-                    let target = document.getElementById(id);
+                    let target = document.getElementById(id); 
 
                     // If no target already exists make a new one
                     if (!target) {
@@ -430,6 +437,35 @@ class SessionSettings {
         // Attach original open
         document.getElementById('add-penalty').addEventListener('click', e => {
             this.GameMode._openPenalty_(null)
+        })
+
+
+        // Add player form
+        this.createPlayer = new Form ({
+            formMap: {
+                name: {value: '', id: 'create-player-name', preset: ''},
+                img: {value: '', id: 'create-player-img', preset: 'resources/images/PlayerIconSerious.webp'},
+                tag: {value: '', id: 'create-player-tag', preset: ''},
+                color: {value: '', id: 'create-player-color', preset: 'Red'},
+                tiresize: {value: '', id: 'create-player-tiresize', preset: ''},
+                bodyheight: {value: '', id: 'create-player-bodyheight', preset: ''}
+            },
+            saveId: 'create-player-save',
+            formId: 'create-player-form',
+            containerId: 'pb-add',
+            onSave: (Form) => {
+                return new Promise((res, rej) => {
+                    const map = Form._formMap
+
+                    let player = this.Session.addPlayer({ name: map.name.value })
+                    player.Settings.Personalise._formMap = map
+
+                    this.Session.setPlayer(map.name.value)
+
+                    Form._container._closePage_ ();
+                    res(Form)
+                });
+            }
         })
 
     }
