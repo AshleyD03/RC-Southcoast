@@ -1,7 +1,6 @@
-import { SwipeContainer } from './modules/container.js'
-import { PenaltyBoard } from './modules/penalties.js'
-import { Clock } from './modules/clock.js'
-import { CustomRecorder } from './modules/Record.js'
+import { SwipeContainer, BookContainer } from './modules/container.js'
+import { Session } from './modules/Session.js'
+import { Form } from './modules/Settings.js'
 
 // Swipe containers 
 window.mainContainer = new SwipeContainer ({
@@ -13,36 +12,47 @@ window.scoreBoardTop = new SwipeContainer ({
     hrefClass: 'scoreBoard-href'
 })
 
-// Set up clock
-window.clock = new Clock('time-counter');
 
-// Link penalty board
-window.penaltyBoard = new PenaltyBoard();
-
-// Construct flag addition
-window.flagRecorder = new CustomRecorder({
-    onClickClass: 'add-flag',
-    classes: ['flag'],
-    message: 'Reached Flag 1',
-    initMethod: (x) => {
-        x.__flagVal = 0;
-        x.__setFlagCounters__ = () => {
-            Array.from(document.getElementsByClassName('flag-counter'))
-            .forEach(ele => {
-                ele.innerHTML = `Flag ${x.__flagVal}`
-            })
-        }
-    }, 
-    trigger: (x) => {
-        x.__flagVal++
-        x.__message = `Reached Flag ${x.__flagVal}`;
-        x.__setFlagCounters__();
-    },
-    deleteTrigger: (x) => {
-        x.__flagVal -= 1;
-        x.__setFlagCounters__();
-    }
+// Book containers
+window.settingsContainer = new BookContainer ({
+    panelID: 'settings-bottom',
+    hrefClass: 'settings-moveto'
 })
+window.playerBoardContainer = new BookContainer ({
+    panelID: 'playerboard-bottom',
+    hrefClass: 'pb-turnTo'
+})
+
+/*
+// Add custom form to playerBardContainer Add Player Page
+window.addPlayerForm = new Form ({
+    formMap: {
+        name: {value:'', id: 'personalise-name', preset: ''},
+        img: {value: '', id: 'personalise-img', preset: 'resources/images/PlayerIconSerious.webp'},
+        tag: {value: this.Player._tag ?? '', id: 'personalise-tag', preset: ''},
+        color: {value: 'Red', id: 'personalise-color', preset: ''},
+        tiresize: {value: '', id: 'personalise-tiresize', preset: ''},
+        bodyheight: {value: '', id: 'personalise-bodyheight', preset: ''},
+    },
+    saveId: '',
+    formId: '',
+    containerId: '',
+    onSave: (Form) => {
+        return new Promise((res, rej) => {
+            res(Form)
+        });
+    }
+});
+window.addPlayerForm;
+*/
+
+// Session 
+window.Session = new Session({
+    isMultiplayer: true,
+});
+window.Session.addPlayer({name: 'Ashley'});
+window.Session.addPlayer({name: 'Xavier'});
+window.Session.setPlayer('Ashley')
 
 // Command to move into yuri mode
 window.yuri = () => {
@@ -53,7 +63,6 @@ window.yuri = () => {
         }
     })
 }
-
 // Oh god...
 window.nuke = () => {
     Array.from(document.querySelectorAll('body *')).forEach(ele => {
@@ -61,7 +70,5 @@ window.nuke = () => {
     })
 }
 
-// Preset commands (for testing)
-penaltyBoard._createController_('Penalty 1',1)
-penaltyBoard._createController_('Penalty 2',2)
-penaltyBoard._createController_('Penalty 3',3)
+// Testing scripts
+mainContainer.__hrefs[1].click()

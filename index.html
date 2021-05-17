@@ -19,19 +19,21 @@
 </head>
 <body>
     <content id="record-container">
-
         <div id="record-panel">
+
+
+
             <span class="panel" id="scoreBoard">
 
                 <!-- Score board container -->
                 <div class="panel-container">
                     <!-- Top scroll area showing points and clock -->
-                    <div class="top-bar-tall" id="scoreBoard-top">
+                    <div class="top-bar-tall color-counter" id="scoreBoard-top">
                         <div class="slideshow" id="scoreBoard-panel">
                             <span class="slide" id="scoreBoard-points">
                                 <center>
                                     <div class="circle-image-big drop-shadow">
-                                        <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                                        <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                                     </div>
                                     <div class="points">
                                         <h2 class="point-counter">
@@ -100,15 +102,31 @@
                 </div>
 
             </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             <span class="panel" id="penalties">
 
                 <!-- Penalties container -->
                 <div class="panel-container">
                     <!-- Top bar with -->
-                    <div class="top-bar-small flex-center" id="penalties-top">
+                    <div class="top-bar-small flex-center color-counter" id="penalties-top">
                         <div class="circle-image-small flow-left drop-shadow">
-                            <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                            <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
                         <div class="top-title flag-counter">
                             Flag 0
@@ -180,12 +198,7 @@
                             sports_score
                         </button>
                         <button>
-                            <div class="material-icons-outlined pause-clock">
-                                pause_circle
-                            </div>
-                        </button>
-                        <button>
-                            <div class="material-icons-outlined unpause-clock">
+                            <div class="material-icons-outlined clock-controlls">
                                 play_circle
                             </div>
                         </button>
@@ -193,15 +206,94 @@
                 </div>
 
             </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <span class="panel multiplayer-only" id="playerBoard">
+                
+                <!-- Penalties container -->
+                <div class="panel-container">
+                    <!-- Top bar with -->
+                    <div class="top-bar-small flex-center color-counter">
+                        <div class="top-title">
+                            Score Board
+                        </div>
+                    </div>
+
+                    <!-- Bottom content -->
+                    <div class="slideshow" id="playerboard-bottom">
+                        <div class="slide" id="pb-home">
+                            <div id="playerboard-player-target">
+
+                            </div>
+                            <template id="playerboard-player-template">
+                                <label class="player">
+                                    <div class="icon">
+                                        <img src='resources/images/PlayerIconSerious.webp'>
+                                    </div>
+                                    <div class="name">
+                                        <span>
+                                            Name
+                                        </span>
+                                        <span>
+                                            @username
+                                        </span>
+                                    </div>
+                                    <div class="score">
+                                        31
+                                    </div>
+                                </label>
+                            </template>
+
+                            <label class="add pb-turnTo" data-moveto="pb-add">
+                                Add Player
+                            </label>
+                        </div>
+
+                        <div class="slide" id="pb-add">
+                            <button class="pb-turnTo" data-moveto="pb-home">
+                                <span class="material-icons">
+                                    navigate_before
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </span>
+
+
+
+
+
+
+
+
+
+
+
             
             <span class="panel" id="settings">
 
                 <!-- Penalties container -->
                 <div class="panel-container">
                     <!-- Top bar with -->
-                    <div class="top-bar-small flex-center" id="settings-top">
+                    <div class="top-bar-small flex-center color-counter" id="settings-top">
                         <div class="circle-image-small flow-left drop-shadow">
-                            <img src="resources/images/PlayerIconSerious.webp" alt="player icon">
+                            <img src="resources/images/PlayerIconSerious.webp" class="icon-counter" alt="player icon">
                         </div>
                         <div class="top-title">
                             Settings
@@ -212,69 +304,283 @@
                     <!-- A dynamic slide container that adds and takes away slides as needed -->
                     <div class="bottom-content slideshow" id="settings-bottom">
 
-                        <!-- Main settings page -->
-                        <div class="slide">
+                        <div class="slide" id="settings-home">
+                            
+                            <!-- Main settings page -->
                             <div class="headline">
-                                Home
+                                <span>Home</span>
                             </div>
 
                             <div class="content">
-                                <button class="pill">
+                                <div class="subheader">
+                                    Player 
+                                </div>
+
+                                <button class="pill settings-moveto" data-moveto="settings-personalise">
+                                    <span class="material-icons-outlined">
+                                        account_circle
+                                    </span>
                                     <span>
                                         Personalise
                                     </span>
-                                    <span class="material-icons">
-                                        navigate_next
-                                    </span>
                                 </button>
 
-                                <button class="pill">
+                                <button class="pill pillend settings-moveto" data-moveto="settings-deleteplayer">
+                                    <span class="material-icons-outlined">
+                                        delete
+                                    </span>
                                     <span>
-                                        Game Mode
-                                    </span>
-                                    <span class="material-icons">
-                                        navigate_next
+                                        Delete Player
                                     </span>
                                 </button>
-                            </div>
-                        </div>
 
-                        <!-- Create new pages to slide into-->
-                        
-                        <div class="slide" id="settings-personalise">
-                            <div class="headline">
-                                <span class="material-icons">
-                                    navigate_next
-                                </span>
-                                Personalise
-                            </div>
-
-                            <div class="content">
-                                <div class="header">
-                                    Visual
+                                <div class="subheader">
+                                    Game
                                 </div>
 
-                                <button class="pill save">
-                                    <span>
-                                        Save
+                                <button class="pill pillend settings-moveto" data-moveto="settings-gamemode">
+                                    <span class="material-icons-outlined">
+                                        sports_basketball
                                     </span>
-                                    <span class="material-icons">
-                                        check
+                                    <span>
+                                        Game mode
                                     </span>
                                 </button>
                             </div>
+
+                        </div><div class="slide" id="settings-personalise">
+
+                            <!-- Personalise Page -->
+                            <div class="headline">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </button>
+                                <span>
+                                    Personalise
+                                </span>
+                            </div>
+
+                            <button class="pill save" form="personalise-form" type="submit" id="personalise-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
+                            <form class="content" id="personalise-form">
+                                <!-- Personal Aspects-->
+                                <div class="subheader">
+                                    Player
+                                </div>
+                                <label class="pill">
+                                    <span>Name</span>
+                                    <input type="text" id="personalise-name" placeholder="...">
+                                </label>
+                                <label class="pill" for="personalise-color">
+                                    <span>Color</span>
+                                    <select type="dropdown" id="personalise-color" dir="rtl">
+                                        <option value="Red" selected>Red</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Yellow">Yellow</option>
+                                        <option value="Pink">Pink</option>
+                                        <option value="Black">Black</option>
+                                    </select>
+                                </label>
+                                <label class="pill readonly">
+                                    <span>Tag</span>
+                                    <input type="text" id="personalise-tag" placeholder="..." readonly>
+                                </label>
+                                <label class="pill pillend">
+                                    <input type="file" id="personalise-img">
+                                    <img src="resources/images/PlayerIconSerious.webp" class="icon-counter">
+                                    <span> upload... </span>
+                                </label>
+
+                                <!-- Car specs -->
+                                <div class="subheader">
+                                    Specs
+                                </div>
+                                <label class="pill">
+                                    <span>Tire Size</span>
+                                    <input type="text" id="personalise-tiresize" placeholder="...">
+                                </label>
+                                <label class="pill">
+                                    <span>Body Height</span>
+                                    <input type="text" id="personalise-bodyheight" placeholder="...">
+                                </label>
+                                
+                            </form>
+
+                        </div><div class="slide" id="settings-deleteplayer">
+
+                            <!-- Personalise Page -->
+                            <div class="headline">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </button>
+                                <span>
+                                    Delete Player
+                                </span>
+                            </div>
+
+                            <button class="pill save" form="deleteplayer-form" type="submit" id="deleteplayer-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
+                            <form class="content" id="deleteplayer-form">
+                                <div class="subheader">
+                                    Check Box
+                                </div>
+                                <label class="pill">
+                                    <span>Are you sure?</span>
+                                    <input type="checkbox" id="deleteplayer-check" placeholder="new name">
+                                </label>
+                            </form>
+
+                        </div><div class="slide" id="settings-gamemode">
+
+                            <!-- Gamemode Page -->                            
+                            <div class="headline">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </button>
+                                <span>
+                                    Game mode
+                                </span>
+                            </div>
+
+                            <button class="pill save" form="gamemode-form" type="submit" id="gamemode-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
+                            <form class="content" id="gamemode-form">
+                                <div class="subheader">
+                                    Event Details
+                                </div>
+
+                                <!-- Event typing -->
+                                <label class="pill" for="gamemode-eventtype">
+                                    <span>Event Type</span>
+                                    <select type="dropdown" id="gamemode-eventtype" dir="rtl">
+                                        <option value="Fun" selected>Fun</option>
+                                        <option value="Competition">Competition</option>
+                                    </select>
+                                </label>
+                                <label class="pill" for="gamemode-ruleset">
+                                    <span>Rule Set</span>
+                                    <select type="dropdown" id="gamemode-ruleset" dir="rtl">
+                                        <option value="Street" selected>Street</option>
+                                        <option value="Trail">Trail</option>
+                                        <option value="Modified">Modified</option>
+                                    </select>
+                                </label>
+                                <label class="pill pillend">
+                                    <span>Max Players</span>
+                                    <input required type="number" id="gamemode-playercapacity" placeholder="1" min="1" max="100" step="1">
+                                </label>
+
+                                <!-- Penalty list to add and take away from -->
+                                <div class="subheader">
+                                    Penalties
+                                </div>
+                                <label class="pill pillend" for="add-penalty">
+                                    <span for="gamemode-addpenalty">
+                                        Add a Penalty
+                                    </span>
+                                    <button type="button" id="add-penalty" class="material-icons add settings-moveto" data-moveto="settings-gamemode-penalty">
+                                        add
+                                    </button>
+                                </label>
+
+                                <div class="container" id="penalty-settings-target">
+
+                                </div>
+                                <template id="penalty-settings-template">
+                                    <label class="pill">
+                                        <span class="dry">
+                                            name
+                                        </span>
+                                        <span class="small">
+                                            ???
+                                        </span>
+                                        <button type="button" class="material-icons add">
+                                            info
+                                        </button>
+                                    </label>
+                                </template>
+                            </form>
+                        </div><div class="slide" id="settings-gamemode-penalty">
+                            
+                            <!-- Gamemode Penalty Settings Page -->                            
+                            <div class="headline">
+                                <button class="material-icons settings-moveto" data-moveto="pageback">
+                                    navigate_before
+                                </button>
+                                <span>
+                                    Penalty
+                                </span>
+                            </div>
+
+                            <button type="submit" form="penalty-form" class="pill save" id="penalty-save">
+                                <span>
+                                    Save changes ?
+                                </span>
+                            </button>
+
+                            <form class="content" id="penalty-form">
+                                <div class="subheader">
+                                    Base
+                                </div>
+                                <label class="pill">
+                                    <span>Name tag</span>
+                                    <input required type="text" id="penalty-name" placeholder="new name">
+                                </label>
+                                <label class="pill pillend">
+                                    <span>Points</span>
+                                    <input required type="number" id="penalty-value" placeholder="+/- ?" min="-100" max="100" step="1">
+                                </label>
+
+                                <div class="container" id="penalty-delete-container">
+                                    <div class="subheader">
+                                        Settings
+                                    </div>
+                                    <label class="pill">
+                                        <span>Delete this</span>
+                                        <input type="checkbox" id="penalty-delete" placeholder="new name">
+                                    </label>
+                                </div>
+                                
+                            </form>
                         </div>
-
                     </div>
-
-
                 </div>
 
             </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
 
         <!-- Bottom bar with controller icons -->
-        <div id="bottomBar">
+        <div id="bottomBar" class="color-counter">
             <button class="record-panel-button" data-moveto="scoreBoard">
                 <span class="material-icons-outlined">
                     view_list
@@ -283,6 +589,11 @@
             <button class="record-panel-button" data-moveto="penalties">
                 <span class="material-icons-outlined">
                     flag
+                </span>
+            </button>
+            <button class="record-panel-button multiplayer-only" data-moveto="playerBoard">
+                <span class="material-icons-outlined">
+                    assignment
                 </span>
             </button>
             <button class="record-panel-button" data-moveto="settings">

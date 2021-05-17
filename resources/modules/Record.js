@@ -2,10 +2,16 @@ import { buttonTimeout } from "./util.js";
 
 class Record {
     // Contains a record node
-    constructor ({msg, classes=[], deleteMethod=null}) {
+    constructor ({
+        msg, 
+        classes=[], 
+        deleteMethod=null,
+        Player
+    }) {
         // Set time or recording
         this._msg = msg;
-        this._time = window.clock._visual.substring(0, 5);
+        this.Player = Player;
+        this._time = this.Player.Clock._visual.substring(0, 5);
         this.__classes = classes;
 
         this._deleteMethod_ = () => {
@@ -49,6 +55,7 @@ class Record {
 
         // Click to undo
         undo.addEventListener('click', e => {
+            if (!this.Player.isActive) return
             this._deleteMethod_();
             this._alertNode.style.background = '#D0E495';
             this._alertNode.style.opacity = 1;
@@ -71,7 +78,16 @@ class Record {
 }
 
 class CustomRecorder {
-    constructor ({onClickClass='', classes=[], message=null, initMethod, trigger, deleteTrigger}){
+    constructor ({
+        onClickClass='', 
+        classes=[], 
+        message, 
+        initMethod, 
+        trigger, 
+        deleteTrigger,
+        Player
+    }){
+        this.Player = Player;
         this.__activators = Array.from(document.getElementsByClassName(onClickClass));
         this.__records = [];
         this.__message = message;
@@ -86,6 +102,7 @@ class CustomRecorder {
 
         this.__activators.forEach(button => {
             button.addEventListener('click', e => {    
+                if (!this.Player.isActive) return
                 buttonTimeout(button)
                 this.__createEvent__();
             })
@@ -99,7 +116,8 @@ class CustomRecorder {
         let record = new Record({
             msg: this.__message,
             classes: this.__classes,
-            deleteMethod: () => this.__removeEvent__(this.__records.length - 1)
+            deleteMethod: () => this.__removeEvent__(this.__records.length - 1),
+            Player: this.Player,
         })
         this.__records.push(record)
         this.__target.insertBefore(record._node, this.__target.children[1]);
@@ -113,4 +131,36 @@ class CustomRecorder {
     }
 }
 
-export {Record, CustomRecorder};
+function flagRecorder ({
+    Player,
+}) {
+    return new CustomRecorder({
+        onClickClass: 'add-flag',
+        classes: ['flag'],
+        message: 'Reached Flag 1',
+        initMethod: (x) => {
+            x.__flagVal = 0;
+            x.__setFlagCounters__ = () => {
+                Array.from(document.getElementsByClassName('flag-counter'))
+                .forEach(ele => {
+                    ele.innerHTML = `Flag ${x.__flagVal}`
+                })
+            }
+
+            x._updateCounter_ = () => {
+                x.__message = `Reached Flag ${x.__flagVal}`;
+            }
+        }, 
+        trigger: (x) => {
+            x.__flagVal++
+            x.__message = `Reached Flag ${x.__flagVal}`;
+            x.__setFlagCounters__();
+        },
+        deleteTrigger: (x) => {
+            x.__flagVal -= 1;
+            x.__setFlagCounters__();
+        },
+        Player,
+    })
+}
+export {Record, CustomRecorder, flagRecorder};
